@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather App</string>
+    <string name="tittle_retry">Thử lại</string>
+    <string name="tittle_cancel">Hủy</string>
+    <string name="tittle_exception_connect">Lỗi kết nối</string>
+    <string name="message_exception_connect">Không thể kết nối internet.  Hãy kiểm tra kết nối internet hoặc WIFI</string>
+    <string name="default_error">Đã có lỗi xảy ra...!</string>
+    <string name="tittle_button_agree">Đông ý</string>
+    <string name="tittle_button_cancel">Hủy</string>
+    <string name="tittle_button_confirm">Xác nhận</string>
+</resources>

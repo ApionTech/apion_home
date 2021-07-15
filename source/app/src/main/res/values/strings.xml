@@ -1,6 +1,11 @@
 <resources>
-    <string name="app_name">Apion Home</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">Weather App</string>
+    <string name="tittle_retry">Retry</string>
+    <string name="tittle_cancel">Cancel</string>
+    <string name="tittle_exception_connect">Connection Error</string>
+    <string name="message_exception_connect">Can\'t connection to internet. \n Please check internet connection or WIFI</string>
+    <string name="default_error">Error…!</string>
+    <string name="tittle_button_agree">Agree</string>
+    <string name="tittle_button_cancel">Cancel</string>
+    <string name="tittle_button_confirm">Confirm</string>
 </resources>
