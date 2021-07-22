@@ -9,6 +9,8 @@ data class House(
     val newsType: String,
     @SerializedName("houseType")
     val houseType: String,
+    @SerializedName("status")
+    val status: String,
     @SerializedName("title")
     val title: String,
     @SerializedName("content")

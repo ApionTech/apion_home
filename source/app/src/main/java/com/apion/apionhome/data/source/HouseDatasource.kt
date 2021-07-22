@@ -1,6 +1,6 @@
 package com.apion.apionhome.data.source
 
-import com.apion.apionhome.data.model.Dashboard
+import com.apion.apionhome.data.model.dashboard.Dashboard
 import com.apion.apionhome.data.model.House
 import com.apion.apionhome.data.model.SearchParam
 import com.apion.apionhome.data.model.local.District

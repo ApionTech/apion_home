@@ -1,14 +1,11 @@
 package com.apion.apionhome.data.source.remote
 
-import android.app.usage.ExternalStorageStats
-import android.net.Uri
-import androidx.core.net.toFile
-import com.apion.apionhome.data.model.Dashboard
+import com.apion.apionhome.data.model.dashboard.Dashboard
 import com.apion.apionhome.data.model.House
 import com.apion.apionhome.data.model.SearchParam
 import com.apion.apionhome.data.source.HouseDatasource
 import com.apion.apionhome.data.source.remote.utils.HouseAPIService
-import com.apion.apionhome.utils.ApiEndPoint.PART_ATTACHMENT
+import com.apion.apionhome.utils.ApiEndPoint.PART_ATTACHMENTS
 import com.apion.apionhome.utils.toMap
 import com.google.gson.Gson
 import io.reactivex.rxjava3.core.Maybe
@@ -56,7 +53,7 @@ class HouseRemoteDatasource(private val backend: HouseAPIService) : HouseDatasou
                 val fileName = "$currentTime.$end"
                 val imageRequestBody = RequestBody.create(MediaType.parse("image/*"), file)
                 imagesParts.add(
-                    MultipartBody.Part.createFormData(PART_ATTACHMENT, fileName, imageRequestBody)
+                    MultipartBody.Part.createFormData(PART_ATTACHMENTS, fileName, imageRequestBody)
                 )
             }
         }
@@ -88,7 +85,7 @@ class HouseRemoteDatasource(private val backend: HouseAPIService) : HouseDatasou
                 val fileName = "$currentTime.$end"
                 val imageRequestBody = RequestBody.create(MediaType.parse("image/*"), file)
                 imagesParts.add(
-                    MultipartBody.Part.createFormData(PART_ATTACHMENT, fileName, imageRequestBody)
+                    MultipartBody.Part.createFormData(PART_ATTACHMENTS, fileName, imageRequestBody)
                 )
             }
         }

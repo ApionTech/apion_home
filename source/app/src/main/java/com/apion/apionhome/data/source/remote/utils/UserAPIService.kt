@@ -2,17 +2,18 @@ package com.apion.apionhome.data.source.remote.utils
 
 import com.apion.apionhome.data.model.User
 import com.apion.apionhome.data.source.remote.response_entity.AllUserResponse
+import com.apion.apionhome.data.source.remote.response_entity.HouseResponse
 import com.apion.apionhome.data.source.remote.response_entity.UserResponse
+import com.apion.apionhome.utils.ApiEndPoint
 import com.apion.apionhome.utils.ApiEndPoint.PATH_LOGIN
+import com.apion.apionhome.utils.ApiEndPoint.PATH_LOGOUT
 import com.apion.apionhome.utils.ApiEndPoint.PATH_PARAM_ID
 import com.apion.apionhome.utils.ApiEndPoint.PATH_USERS
 import com.apion.apionhome.utils.ApiEndPoint.PATH_USERS_BY_ID
 import io.reactivex.rxjava3.core.Maybe
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface UserAPIService {
 
@@ -30,4 +31,18 @@ interface UserAPIService {
 
     @POST(PATH_LOGIN)
     fun login(@Body phone: RequestBody): Maybe<UserResponse>
+
+    @POST(PATH_LOGOUT)
+    fun logout(
+        @Path(PATH_PARAM_ID) id: Int,
+        @Body phone: RequestBody
+    ): Maybe<UserResponse>
+
+    @Multipart
+    @POST(ApiEndPoint.PATH_UPLOAD_AVATAR)
+    @JvmSuppressWildcards
+    fun uploadAvatar(
+        @Path(PATH_PARAM_ID) id: Int,
+        @Part attachment: MultipartBody.Part
+    ): Maybe<UserResponse>
 }

@@ -33,7 +33,9 @@ interface HouseAPIService {
     @GET(PATH_SEARCH)
     fun getSearchHouse(@Body search: SearchParam): Maybe<AllHouseResponse>
 
+    @Multipart
     @POST(PATH_HOUSES)
+    @JvmSuppressWildcards
     fun createHouse(
         @Part attachments: List<MultipartBody.Part>,
         @PartMap house: Map<String, RequestBody>

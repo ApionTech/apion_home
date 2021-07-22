@@ -1,12 +1,12 @@
 package com.apion.apionhome.data.source.remote.response_entity
 
-import com.apion.apionhome.data.model.dashboard.Dashboard
+import com.apion.apionhome.data.model.community.Community
 import com.google.gson.annotations.SerializedName
 
-data class DashboardResponse(
+data class AllCommunityResponse(
 
     @SerializedName("data")
-    val dashboard: Dashboard,
+    val communities: List<Community>,
 
     @SerializedName("success")
     val isSuccess: Boolean,

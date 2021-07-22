@@ -10,7 +10,8 @@ object ApiEndPoint {
     const val PATH_USERS = "users"
     const val PATH_USERS_BY_ID = "users/{id}"
 
-    const val PATH_UPLOAD_AVATAR = "upload-avatar-user/"
+    const val PATH_UPLOAD_AVATAR = "upload-avatar-user/{id}"
+    const val PATH_LOGOUT = "logout/{id}"
     const val PATH_LOGIN = "login"
     const val PATH_UPDATE_PIN = "update-pincode"
 
@@ -23,6 +24,13 @@ object ApiEndPoint {
 
     const val PATH_SEARCH = "search"
 
+    const val PATH_COMMUNITY = "communities"
+    const val PATH_COMMUNITY_BY_ID = "communities/{id}"
+
+    const val PATH_PARTICIPANT = "participants"
+    const val PATH_PARTICIPANT_BY_ID = "participants/{id}"
+    const val PATH_LEAVE_COMMUNITY = "leave-community"
+
     const val PART_PROVINCE = "province"
     const val PART_DISTRICT = "district"
     const val PART_PRICE_RANGE = "priceRange"
@@ -30,7 +38,10 @@ object ApiEndPoint {
     const val PART_HOME_DIRECTION = "homeDirection"
     const val PART_TITLE = "title"
     const val PART_FRONT_WIDTH_RANGE = "frontWidthRange"
-    const val PART_ATTACHMENT = "attachment[]"
+    const val PART_ATTACHMENTS = "attachment[]"
+
+    const val PART_ATTACHMENT = "attachment"
+
     const val PART_NEWS_TYPE = "news_type"
 
     const val PATH_PARAM_ID = "id"

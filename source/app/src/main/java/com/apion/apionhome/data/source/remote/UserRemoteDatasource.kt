@@ -3,13 +3,19 @@ package com.apion.apionhome.data.source.remote
 import com.apion.apionhome.data.model.User
 import com.apion.apionhome.data.source.UserDatasource
 import com.apion.apionhome.data.source.remote.utils.UserAPIService
+import com.apion.apionhome.utils.ApiEndPoint
 import com.google.gson.Gson
 import com.google.gson.JsonObject
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import okhttp3.MediaType
+import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.HttpException
+import java.io.File
 import java.lang.Exception
 import java.lang.IllegalArgumentException
+import java.util.*
 
 
 class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource.Remote {
@@ -48,6 +54,26 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
         }
     }
 
+    override fun uploadAvatar(id: Int, image: String): Maybe<User> {
+        val file = File(image)
+        println(image)
+        println(file.isFile)
+        if (file.isFile) {
+            val end = file.name.split(".").last()
+            val currentTime = Date().time.toString()
+            val fileName = "$currentTime.$end"
+            val imageRequestBody = RequestBody.create(MediaType.parse("image/*"), file)
+            val imagePart = MultipartBody.Part.createFormData(
+                ApiEndPoint.PART_ATTACHMENT,
+                fileName,
+                imageRequestBody
+            )
+            return backend.uploadAvatar(id, imagePart).map { it.user }
+        } else {
+            return Maybe.error(IllegalArgumentException("No such file $image"))
+        }
+    }
+
     @Throws(IllegalArgumentException::class)
     override fun login(phone: String, pinCode: String): Maybe<User> {
         val json = JsonObject().apply {
@@ -76,7 +102,29 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
         }
     }
 
-    companion object{
+    override fun logout(id: Int, phone: String): Maybe<User> {
+        val json = JsonObject().apply {
+            addProperty("phone", phone)
+        }
+
+        val body = RequestBody.create(
+            MediaType.parse("application/json; charset=utf-8"),
+            Gson().toJson(json)
+        )
+        return try {
+            backend.logout(id, body).map {
+                if (it.isSuccess) {
+                    it.user
+                } else {
+                    throw IllegalArgumentException(it.message)
+                }
+            }
+        } catch (exception: HttpException) {
+            Maybe.error(exception)
+        }
+    }
+
+    companion object {
         const val AUTHEN_EXCEPTION = "Password isn't valid"
     }
 }

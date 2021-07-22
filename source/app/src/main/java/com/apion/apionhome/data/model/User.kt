@@ -1,5 +1,6 @@
 package com.apion.apionhome.data.model
 
+import com.apion.apionhome.data.model.community.Participant
 import com.google.gson.annotations.SerializedName
 
 data class User(
@@ -37,8 +38,6 @@ data class User(
     val email: String,
     @SerializedName("facebook_id")
     val facebook_id: String,
-    @SerializedName("bookmarks")
-    val bookmarks: String?,
     @SerializedName("created_at")
     val created_at: String,
     @SerializedName("updated_at")
@@ -48,7 +47,11 @@ data class User(
     @SerializedName("boss")
     val boss: User?,
     @SerializedName("house_sold")
-    val houseSold: List<House>
+    val houseSold: List<House>,
+    @SerializedName("participants")
+    val participants: List<Participant>,
+    @SerializedName("houses_bookmark")
+    val bookmarks: List<BookMark>,
 ) : GeneraEntity {
 
     override fun areItemsTheSame(newItem: GeneraEntity): Boolean =
