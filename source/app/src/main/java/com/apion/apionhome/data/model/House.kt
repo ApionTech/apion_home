@@ -1,6 +1,5 @@
 package com.apion.apionhome.data.model
 
-import com.fsoft.weatherapp.data.model.GeneraEntity
 import com.google.gson.annotations.SerializedName
 
 data class House(
@@ -25,7 +24,7 @@ data class House(
     @SerializedName("detail_address")
     val address: String,
     @SerializedName("price")
-    val price: Int,
+    val price: Long,
     @SerializedName("acreage")
     val acreage: Int,
     @SerializedName("homeDirection")

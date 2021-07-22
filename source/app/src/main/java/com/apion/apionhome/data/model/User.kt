@@ -1,6 +1,5 @@
 package com.apion.apionhome.data.model
 
-import com.fsoft.weatherapp.data.model.GeneraEntity
 import com.google.gson.annotations.SerializedName
 
 data class User(
@@ -8,6 +7,8 @@ data class User(
     val id: Int,
     @SerializedName("name")
     val name: String,
+    @SerializedName("remember_token")
+    val token: String,
     @SerializedName("phone")
     val phone: String,
     @SerializedName("referal")
@@ -38,8 +39,6 @@ data class User(
     val facebook_id: String,
     @SerializedName("bookmarks")
     val bookmarks: String?,
-    @SerializedName("remember_token")
-    val remember_token: String?,
     @SerializedName("created_at")
     val created_at: String,
     @SerializedName("updated_at")

@@ -9,6 +9,8 @@ interface UserRepository {
     fun getUserById(id: Int): Maybe<User>
 
     fun createUser(user: User): Maybe<User>
+
     fun updateUser(user: User): Maybe<User>
-    fun login(phone: String): Maybe<User>
+
+    fun login(phone: String, pinCode: String): Maybe<User>
 }

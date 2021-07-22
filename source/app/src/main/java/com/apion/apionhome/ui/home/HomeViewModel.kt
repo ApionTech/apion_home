@@ -2,12 +2,59 @@ package com.apion.apionhome.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import com.apion.apionhome.base.RxViewModel
+import com.apion.apionhome.data.model.Dashboard
+import com.apion.apionhome.data.model.local.District
+import com.apion.apionhome.data.repository.HouseRepository
+import com.apion.apionhome.data.repository.UserRepository
+import com.apion.apionhome.utils.setup
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    val userRepository: UserRepository,
+    val houseRepository: HouseRepository
+) : RxViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private val _dashBoard = MutableLiveData<Dashboard>()
+
+    val dashBoard: LiveData<Dashboard>
+        get() = _dashBoard
+
+
+    private val _districts = MutableLiveData<List<District>>()
+
+    val districts: LiveData<List<District>>
+        get() = _districts
+
+    private val _showPass = MutableLiveData<Boolean>(false)
+
+    val showPass: LiveData<Boolean>
+        get() = _showPass
+
+    init {
+        getDashboard()
     }
-    val text: LiveData<String> = _text
+
+    fun getImages(): List<String> = _dashBoard.value?.feature?.first()?.images ?: emptyList()
+
+    fun setShowPass() {
+        _showPass.value?.let {
+            _showPass.value = !it
+            return
+        }
+        _showPass.value = false
+    }
+
+    fun getDashboard() {
+        houseRepository
+            .getDashboard()
+            .setup()
+            .subscribe(
+                {
+                    _dashBoard.value = it
+                }, {
+                    it.printStackTrace()
+                    error.value = it.message
+                }
+            )
+    }
 }

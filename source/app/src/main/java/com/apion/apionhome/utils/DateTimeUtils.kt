@@ -1,4 +1,4 @@
-package com.fsoft.weatherapp.utils
+package com.apion.apionhome.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

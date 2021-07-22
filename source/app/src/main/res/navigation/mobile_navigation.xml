@@ -8,18 +8,26 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.apion.apionhome.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/actionToDetail"
+            app:destination="@id/activityDetail" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.apion.apionhome.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
         android:name="com.apion.apionhome.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
+
+    <activity
+        android:id="@+id/activityDetail"
+        android:name="com.apion.apionhome.ui.image.DetailActivity"
+        android:label="Product Details"
+        tools:layout="@layout/activity_detail" />
+
 </navigation>

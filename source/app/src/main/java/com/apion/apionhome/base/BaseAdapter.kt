@@ -2,10 +2,7 @@ package com.apion.apionhome.base
 
 import androidx.recyclerview.widget.ListAdapter
 import androidx.viewbinding.ViewBinding
-import com.fsoft.weatherapp.base.BaseDiffUtil
-import com.fsoft.weatherapp.base.BaseViewHolder
-import com.fsoft.weatherapp.base.BindAbleAdapter
-import com.fsoft.weatherapp.data.model.GeneraEntity
+import com.apion.apionhome.data.model.GeneraEntity
 
 abstract class BaseAdapter<T : GeneraEntity, B : ViewBinding>() :
     ListAdapter<T, BaseViewHolder<T, B>>(BaseDiffUtil<T>()),

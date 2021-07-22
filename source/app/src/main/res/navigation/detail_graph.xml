@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_gra"
+    app:startDestination="@+id/detailImageFragment">
+
+    <fragment
+        android:id="@+id/detailImageFragment"
+        android:name="com.apion.apionhome.ui.image.DetailImageFragment"
+        android:label="fragment_detail_image"
+        tools:layout="@layout/fragment_detail_image" />
+
+</navigation>

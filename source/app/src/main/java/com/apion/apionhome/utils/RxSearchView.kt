@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.subjects.BehaviorSubject
 
 object RxSearchView {
-    fun fromSearchView(@NonNull searchView: SearchView, onSubmit: ()-> Unit): Observable<String> {
+    fun fromSearchView(@NonNull searchView: SearchView, onSubmit: () -> Unit): Observable<String> {
 
         val subject: BehaviorSubject<String> = BehaviorSubject.create()
 
@@ -18,12 +18,10 @@ object RxSearchView {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.isEmpty() == false) {
-                    subject.onNext(newText)
-                }
+                println("lenght ${newText?.length}")
+                subject.onNext(newText)
                 return true
             }
-
         })
         return subject
     }

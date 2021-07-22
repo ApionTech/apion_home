@@ -1,4 +1,4 @@
-package com.fsoft.weatherapp.data.model
+package com.apion.apionhome.data.model
 
 interface GeneraEntity {
     fun areItemsTheSame(newItem: GeneraEntity): Boolean

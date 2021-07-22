@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -11,19 +12,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.LayoutRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import com.apion.apionhome.R
 import com.apion.apionhome.utils.showToast
 
+typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
 
-abstract class BindingFragment<T : ViewDataBinding> : Fragment() {
-    @LayoutRes
-    abstract fun getLayoutResId(): Int
+abstract class BindingFragment<T : ViewBinding>
+    (private val inflate: Inflate<T>) : Fragment() {
 
     abstract val viewModel: RxViewModel
 
@@ -37,14 +39,19 @@ abstract class BindingFragment<T : ViewDataBinding> : Fragment() {
             onPermissionResult(permissions)
         }
 
+    private val requestActivityForResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            onActivityResult(result)
+        }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
-        DataBindingUtil
-            .inflate<T>(inflater, getLayoutResId(), container, false)
-            .apply { _binding = this }.root
+    ): View? {
+        _binding = inflate.invoke(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -65,8 +72,16 @@ abstract class BindingFragment<T : ViewDataBinding> : Fragment() {
         }
     }
 
+    open fun onActivityResult(result: ActivityResult) {
+        Log.e("DEBUG", "${result.resultCode} = ${result.data}")
+    }
+
+    fun startActivityForResultSafely(intent: Intent) {
+        requestActivityForResult.launch(intent)
+    }
+
     @TargetApi(Build.VERSION_CODES.M)
-    fun requestPermissionsSafely(permissions: List<String>, requestCode: Int) {
+    fun requestPermissionsSafely(permissions: List<String>) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             permissions.filter {
                 !hasPermission(it)

@@ -20,12 +20,12 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
 
     @Throws(IllegalArgumentException::class)
     override fun createUser(user: User): Maybe<User> {
-        val body = RequestBody.create(
-            MediaType.parse("application/json; charset=utf-8"),
-            Gson().toJson(user)
-        )
+//        val body = RequestBody.create(
+//            MediaType.parse("application/json; charset=utf-8"),
+//            Gson().toJson(user)
+//        )
         return try {
-            backend.createUser(body).map {
+            backend.createUser(user).map {
                 if (it.isSuccess) it.user else throw IllegalArgumentException(it.message)
             }
         } catch (exception: Exception) {
@@ -35,12 +35,12 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
 
     @Throws(IllegalArgumentException::class)
     override fun updateUser(user: User): Maybe<User> {
-        val body = RequestBody.create(
-            MediaType.parse("application/json; charset=utf-8"),
-            Gson().toJson(user)
-        )
+//        val body = RequestBody.create(
+//            MediaType.parse("application/json; charset=utf-8"),
+//            Gson().toJson(user)
+//        )
         return try {
-            backend.updateUser(user.id, body).map {
+            backend.updateUser(user.id, user).map {
                 if (it.isSuccess) it.user else throw IllegalArgumentException(it.message)
             }
         } catch (exception: Exception) {
@@ -49,7 +49,7 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
     }
 
     @Throws(IllegalArgumentException::class)
-    override fun login(phone: String): Maybe<User> {
+    override fun login(phone: String, pinCode: String): Maybe<User> {
         val json = JsonObject().apply {
             addProperty("phone", phone)
         }
@@ -58,12 +58,25 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
             MediaType.parse("application/json; charset=utf-8"),
             Gson().toJson(json)
         )
+
         return try {
             backend.login(body).map {
-                if (it.isSuccess) it.user else throw IllegalArgumentException(it.message)
+                if (it.isSuccess) {
+                    if (it.user.pincode == pinCode) {
+                        it.user
+                    } else {
+                        throw IllegalArgumentException(AUTHEN_EXCEPTION)
+                    }
+                } else {
+                    throw IllegalArgumentException(it.message)
+                }
             }
         } catch (exception: Exception) {
             Maybe.error(exception)
         }
+    }
+
+    companion object{
+        const val AUTHEN_EXCEPTION = "Password isn't valid"
     }
 }

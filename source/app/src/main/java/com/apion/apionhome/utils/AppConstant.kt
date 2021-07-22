@@ -19,6 +19,9 @@ object ApiEndPoint {
     const val PATH_SELL_HOUSE = "sell-house"
 
     const val PATH_DASHBOARD = "dashboards"
+    const val PATH_GET_HOUSE_BY_USER = "get-houses-by-user-id/{id}"
+
+    const val PATH_SEARCH = "search"
 
     const val PART_PROVINCE = "province"
     const val PART_DISTRICT = "district"
@@ -28,6 +31,7 @@ object ApiEndPoint {
     const val PART_TITLE = "title"
     const val PART_FRONT_WIDTH_RANGE = "frontWidthRange"
     const val PART_ATTACHMENT = "attachment[]"
+    const val PART_NEWS_TYPE = "news_type"
 
     const val PATH_PARAM_ID = "id"
 }

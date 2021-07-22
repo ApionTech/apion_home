@@ -5,7 +5,6 @@ import io.reactivex.rxjava3.core.Maybe
 
 interface UserDatasource {
 
-
     interface Remote {
 
         fun getAllUsers(): Maybe<List<User>>
@@ -13,6 +12,6 @@ interface UserDatasource {
 
         fun createUser(user: User): Maybe<User>
         fun updateUser(user: User): Maybe<User>
-        fun login(phone: String): Maybe<User>
+        fun login(phone: String, pinCode: String): Maybe<User>
     }
 }

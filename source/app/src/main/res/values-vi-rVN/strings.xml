@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Weather App</string>
+    <string name="app_name">Apion Home</string>
     <string name="tittle_retry">Thử lại</string>
     <string name="tittle_cancel">Hủy</string>
     <string name="tittle_exception_connect">Lỗi kết nối</string>
@@ -9,4 +9,10 @@
     <string name="tittle_button_agree">Đông ý</string>
     <string name="tittle_button_cancel">Hủy</string>
     <string name="tittle_button_confirm">Xác nhận</string>
+    <string name="hint_query">Tìm kiếm</string>
+    <string name="title_search">Tìm kiếm</string>
+    <string name="title_search_province">Tìm kiếm tỉnh, thành phố</string>
+    <string name="title_search_district">Tìm kiếm quận, huyện, thị xã</string>
+    <string name="title_search_ward">Tìm kiếm xã, phường</string>
+    <string name="title_search_street">Tìm kiếm đường, phố</string>
 </resources>

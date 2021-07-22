@@ -23,10 +23,10 @@ interface UserAPIService {
     fun geUserById(@Path(PATH_PARAM_ID) id: Int): Maybe<UserResponse>
 
     @POST(PATH_USERS)
-    fun createUser(@Body user: RequestBody): Maybe<UserResponse>
+    fun createUser(@Body user: User): Maybe<UserResponse>
 
     @POST(PATH_USERS_BY_ID)
-    fun updateUser(@Path(PATH_PARAM_ID) id: Int, @Body user: RequestBody): Maybe<UserResponse>
+    fun updateUser(@Path(PATH_PARAM_ID) id: Int, @Body user: User): Maybe<UserResponse>
 
     @POST(PATH_LOGIN)
     fun login(@Body phone: RequestBody): Maybe<UserResponse>

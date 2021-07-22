@@ -27,9 +27,9 @@ class UserRepositoryImpl(private val remote: UserDatasource.Remote) : UserReposi
         }
     }
 
-    override fun login(phone: String): Maybe<User> {
+    override fun login(phone: String, pinCode: String): Maybe<User> {
         return try {
-            remote.login(phone)
+            remote.login(phone, pinCode)
         } catch (exception: Exception) {
             Maybe.error(exception)
         }
