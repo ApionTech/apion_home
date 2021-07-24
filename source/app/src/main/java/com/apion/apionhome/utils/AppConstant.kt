@@ -29,7 +29,11 @@ object ApiEndPoint {
 
     const val PATH_PARTICIPANT = "participants"
     const val PATH_PARTICIPANT_BY_ID = "participants/{id}"
-    const val PATH_LEAVE_COMMUNITY = "leave-community"
+    const val PATH_LEAVE_COMMUNITY = "leave-community/{id}"
+
+    const val PATH_BOOKMARK = "bookmarks"
+    const val PATH_BOOKMARK_BY_ID = "bookmarks/{id}"
+    const val PATH_UN_BOOKMARK = "leave-community/{id}"
 
     const val PART_PROVINCE = "province"
     const val PART_DISTRICT = "district"
@@ -43,6 +47,8 @@ object ApiEndPoint {
     const val PART_ATTACHMENT = "attachment"
 
     const val PART_NEWS_TYPE = "news_type"
+    const val PART_AVATAR = "avatar"
+    const val PART_COVER = "cover"
 
     const val PATH_PARAM_ID = "id"
 }

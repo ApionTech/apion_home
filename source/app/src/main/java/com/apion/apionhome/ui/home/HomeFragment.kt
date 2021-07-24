@@ -1,32 +1,35 @@
 package com.apion.apionhome.ui.home
 
-import android.app.Activity
-import android.content.Intent
 import android.view.inputmethod.EditorInfo
-import androidx.activity.result.ActivityResult
 import androidx.core.widget.doOnTextChanged
 import androidx.navigation.fragment.findNavController
 import com.apion.apionhome.R
 import com.apion.apionhome.base.BindingFragment
+import com.apion.apionhome.base.BindingFragmentPickImage
+import com.apion.apionhome.data.model.community.Community
 import com.apion.apionhome.data.model.local.District
 import com.apion.apionhome.data.model.local.LocationName
 import com.apion.apionhome.data.model.local.Province
 import com.apion.apionhome.databinding.FragmentHomeBinding
 import com.apion.apionhome.ui.search.SearchLocationBottomSheet
 import com.apion.apionhome.ui.search.SearchViewModel
-import com.apion.apionhome.utils.getRealPath
+import com.apion.apionhome.viewmodel.CommunityViewModel
 import com.apion.apionhome.viewmodel.HouseViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment :
-    BindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+    BindingFragmentPickImage<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     override val viewModel by sharedViewModel<HomeViewModel>()
 
     private val houseViewModel by viewModel<HouseViewModel>()
 
+    private val communityViewModel by viewModel<CommunityViewModel>()
+
     private val searchViewModel by sharedViewModel<SearchViewModel>()
+
+    private val pass = CharArray(4)
 
     override fun setupView() {
         binding.lifecycleOwner = this
@@ -35,7 +38,20 @@ class HomeFragment :
         setupListener()
     }
 
-    private val pass = CharArray(4)
+    override fun onImagesSelect(images: List<String>) {
+//        houseViewModel.house.value?.let {
+//            houseViewModel.updateHouse(images, it)
+//        }
+        communityViewModel.createCommunity(
+            images.firstOrNull(),
+            images.getOrNull(1),
+            Community(
+                name = "Yên Thế Hạ",
+                district = "Yên Thế",
+                shortDesc = "Cộng đồng anh em bất động sản Yên Thế"
+            )
+        )
+    }
 
     override fun onResume() {
         super.onResume()
@@ -119,38 +135,6 @@ class HomeFragment :
         }
     }
 
-    override fun onPermissionResult(permissions: MutableMap<String, Boolean>) {
-        super.onPermissionResult(permissions)
-        if (hasPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            pickImage()
-        }
-    }
-
-    override fun onActivityResult(result: ActivityResult) {
-        super.onActivityResult(result)
-        if (result.resultCode == Activity.RESULT_OK) {
-            val images = mutableListOf<String>()
-            val data = result.data
-
-            if (data?.clipData != null) {
-                val count = data.clipData?.itemCount ?: 0
-                for (i in 0 until count) {
-                    val imageUri = data.clipData?.getItemAt(i)?.uri
-                    images.add(imageUri?.getRealPath(requireContext()) ?: "")
-                }
-            } else {
-                val imageUri = data?.data
-                images.add(imageUri?.getRealPath(requireContext()) ?: "")
-            }
-            if (images.isNotEmpty()) {
-                println(images)
-                houseViewModel.house.value?.let {
-                    houseViewModel.updateHouse(images, it)
-                }
-            }
-        }
-    }
-
     private fun setupListener() {
         binding.buttonAddImage.setOnClickListener {
             pickImageSafety()
@@ -162,40 +146,16 @@ class HomeFragment :
         }
 
         binding.buttonSearchProvince.setOnClickListener {
-            val bottomSheetFragment = SearchLocationBottomSheet<Province>(
-                getString(R.string.title_search_province),
-                {
-                    println("wards ${it.districts}")
-                    searchViewModel.setProvince(it)
-                }, {
-                    searchViewModel.searchProvince(it)
-                })
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+            findNavController().navigate(R.id.actionToSearchProvinceFragment)
         }
 
         binding.buttonSearchDistrict.setOnClickListener {
-            val bottomSheetFragment = SearchLocationBottomSheet<District>(
-                getString(R.string.title_search_district),
-                {
-                    println("wards ${it.wards}")
-                    searchViewModel.setDistrict(it)
-                }, {
-                    searchViewModel.searchDistrict(it)
-                })
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+            findNavController().navigate(R.id.actionToSearchDistrictFragment)
         }
 
         binding.buttonSearchWard.setOnClickListener {
             if (searchViewModel.district.value != null) {
-                val bottomSheetFragment = SearchLocationBottomSheet<LocationName>(
-                    getString(R.string.title_search_ward),
-                    {
-                        println("tittle ${it.prefix} ${it.name}")
-                        searchViewModel.setWard(it)
-                    }, {
-                        searchViewModel.searchWard(it)
-                    })
-                bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+                findNavController().navigate(R.id.actionToSearchWardFragment)
             } else {
                 showToast("Vui lòng chọn quận, huyện trước")
             }
@@ -203,35 +163,10 @@ class HomeFragment :
 
         binding.buttonSearchStreet.setOnClickListener {
             if (searchViewModel.district.value != null) {
-                val bottomSheetFragment = SearchLocationBottomSheet<LocationName>(
-                    getString(R.string.title_search_street),
-                    {
-                        println("title ${it.prefix} ${it.name}")
-                        searchViewModel.setStreet(it)
-                    }, {
-                        searchViewModel.searchStreet(it)
-                    })
-                bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+                findNavController().navigate(R.id.actionToSearchStreetFragment)
             } else {
                 showToast("Vui lòng chọn quận, huyện trước")
             }
         }
     }
-
-    private fun pickImageSafety() {
-        if (hasPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            pickImage()
-        } else {
-            requestPermissionsSafely(arrayListOf(android.Manifest.permission.READ_EXTERNAL_STORAGE))
-        }
-    }
-
-    private fun pickImage() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResultSafely(Intent.createChooser(intent, "Chọn ảnh"))
-    }
-
 }

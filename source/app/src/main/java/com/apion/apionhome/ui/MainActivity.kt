@@ -3,6 +3,7 @@ package com.apion.apionhome.ui
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ActivityNavigator
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.apion.apionhome.R
@@ -21,5 +22,10 @@ class MainActivity : AppCompatActivity() {
         navView.background = null
         navView.menu.getItem(2).isEnabled = false
         navView.setupWithNavController(navController)
+    }
+
+    override fun finish() {
+        super.finish()
+        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
     }
 }

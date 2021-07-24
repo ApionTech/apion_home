@@ -26,10 +26,6 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
 
     @Throws(IllegalArgumentException::class)
     override fun createUser(user: User): Maybe<User> {
-//        val body = RequestBody.create(
-//            MediaType.parse("application/json; charset=utf-8"),
-//            Gson().toJson(user)
-//        )
         return try {
             backend.createUser(user).map {
                 if (it.isSuccess) it.user else throw IllegalArgumentException(it.message)
@@ -41,10 +37,6 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
 
     @Throws(IllegalArgumentException::class)
     override fun updateUser(user: User): Maybe<User> {
-//        val body = RequestBody.create(
-//            MediaType.parse("application/json; charset=utf-8"),
-//            Gson().toJson(user)
-//        )
         return try {
             backend.updateUser(user.id, user).map {
                 if (it.isSuccess) it.user else throw IllegalArgumentException(it.message)
@@ -56,9 +48,7 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
 
     override fun uploadAvatar(id: Int, image: String): Maybe<User> {
         val file = File(image)
-        println(image)
-        println(file.isFile)
-        if (file.isFile) {
+        return if (file.isFile) {
             val end = file.name.split(".").last()
             val currentTime = Date().time.toString()
             val fileName = "$currentTime.$end"
@@ -68,9 +58,9 @@ class UserRemoteDatasource(private val backend: UserAPIService) : UserDatasource
                 fileName,
                 imageRequestBody
             )
-            return backend.uploadAvatar(id, imagePart).map { it.user }
+            backend.uploadAvatar(id, imagePart).map { it.user }
         } else {
-            return Maybe.error(IllegalArgumentException("No such file $image"))
+            Maybe.error(IllegalArgumentException("No such file $image"))
         }
     }
 

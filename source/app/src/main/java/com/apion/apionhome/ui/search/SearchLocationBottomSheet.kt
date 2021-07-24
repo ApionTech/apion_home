@@ -4,6 +4,8 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.navigation.fragment.findNavController
+import com.apion.apionhome.base.BindingFragment
 import com.apion.apionhome.base.BindingFragmentBottomSheet
 import com.apion.apionhome.data.model.local.ILocation
 import com.apion.apionhome.databinding.BottomsheetSearchLocationBinding
@@ -17,48 +19,45 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import java.util.concurrent.TimeUnit
 
-class SearchLocationBottomSheet<L : ILocation>(
-    private val hint: String,
-    private val itemClick: (L) -> Unit,
-    private val onSearch: (String) -> Unit
-) :
-    BindingFragmentBottomSheet<BottomsheetSearchLocationBinding>(BottomsheetSearchLocationBinding::inflate) {
+abstract class SearchLocationBottomSheet<L : ILocation>() :
+    BindingFragment<BottomsheetSearchLocationBinding>(BottomsheetSearchLocationBinding::inflate) {
 
     override val viewModel by sharedViewModel<SearchViewModel>()
 
-    private val suggestionsAdapter = SearchLocationAdapter(::onItemClick)
+    private val suggestionsAdapter = SearchLocationAdapter(::onItemSearchClick)
 
     private var disposeable: Disposable? = null
+    abstract fun getHint(): String
+    abstract fun onItemClick(item: L)
+    abstract fun onSearch(query: String)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread(
-            Runnable {
-                onSearch("")
-            }
-        ).start()
-
+        Thread {
+            onSearch("")
+        }.start()
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = BottomSheetDialog(requireContext(), theme)
-        dialog.setOnShowListener {
-            val bottomSheetDialog = it as BottomSheetDialog
-            val parentLayout =
-                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            parentLayout?.let { it ->
-                val behaviour = BottomSheetBehavior.from(it)
-                setupFullHeight(it)
-                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-        }
-        return dialog
-    }
+//    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+//        val dialog = BottomSheetDialog(requireContext(), theme)
+//        dialog.setOnShowListener {
+//            val bottomSheetDialog = it as BottomSheetDialog
+//            val parentLayout =
+//                bottomSheetDialog.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
+//            parentLayout?.let { it ->
+//                val behaviour = BottomSheetBehavior.from(it)
+//                setupFullHeight(it)
+//                behaviour.state = BottomSheetBehavior.STATE_EXPANDED
+//            }
+//        }
+//        return dialog
+//    }
 
     override fun setupView() {
         binding.lifecycleOwner = this
         binding.searchViewModel = viewModel
         binding.recyclerView.adapter = suggestionsAdapter
+        binding.search.queryHint = getHint()
         setUpSearchView()
     }
 
@@ -75,13 +74,16 @@ class SearchLocationBottomSheet<L : ILocation>(
         bottomSheet.layoutParams = layoutParams
     }
 
-    private fun onItemClick(item: L) {
-        itemClick(item)
-        dismiss()
+    private fun onItemSearchClick(item: L) {
+        onItemClick(item)
+        findNavController().popBackStack()
     }
 
     private fun setUpSearchView() {
         binding.apply {
+            textViewCancel.setOnClickListener {
+                findNavController().popBackStack()
+            }
             disposeable = RxSearchView.fromSearchView(search) {
                 search.setQuery("", true)
                 search.clearFocus()

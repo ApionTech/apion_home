@@ -9,9 +9,41 @@
         android:id="@+id/navigation_home"
         android:name="com.apion.apionhome.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home">
+
         <action
             android:id="@+id/actionToDetail"
             app:destination="@id/activityDetail" />
+
+        <action
+            android:id="@+id/actionToSearchDistrictFragment"
+            app:destination="@id/searchDistrictFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_bottom"/>
+        <action
+            android:id="@+id/actionToSearchProvinceFragment"
+            app:destination="@id/searchProvinceFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_bottom"/>
+
+        <action
+            android:id="@+id/actionToSearchWardFragment"
+            app:destination="@id/searchWardFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_bottom"/>
+
+        <action
+            android:id="@+id/actionToSearchStreetFragment"
+            app:destination="@id/searchStreetFragment"
+            app:enterAnim="@anim/slide_up"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_bottom"/>
     </fragment>
 
     <fragment
@@ -29,5 +61,25 @@
         android:name="com.apion.apionhome.ui.image.DetailActivity"
         android:label="Product Details"
         tools:layout="@layout/activity_detail" />
+
+    <fragment
+        android:id="@+id/searchProvinceFragment"
+        android:name="com.apion.apionhome.ui.search.SearchProvinceFragment"
+        android:label="SearchProvinceFragment" />
+
+    <fragment
+        android:id="@+id/searchDistrictFragment"
+        android:name="com.apion.apionhome.ui.search.SearchDistrictFragment"
+        android:label="SearchDistrictFragment" />
+
+    <fragment
+        android:id="@+id/searchWardFragment"
+        android:name="com.apion.apionhome.ui.search.SearchWardFragment"
+        android:label="SearchWardFragment" />
+
+    <fragment
+        android:id="@+id/searchStreetFragment"
+        android:name="com.apion.apionhome.ui.search.SearchStreetFragment"
+        android:label="SearchStreetFragment" />
 
 </navigation>

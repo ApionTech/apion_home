@@ -22,6 +22,8 @@ class MyApplication : Application() {
                     viewModelModule,
                     userRepoModule,
                     houseRepoModule,
+                    bookMarkRepoModule,
+                    communityRepoModule,
                 )
             )
         }
