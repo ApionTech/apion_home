@@ -12,10 +12,26 @@
     <string name="hint_query">Input query to search</string>
     <string name="title_search">Search</string>
     <string name="title_search_province">Search province, city</string>
-    <string name="title_search_district">Search district, thị xã</string>
+    <string name="title_search_district">Search district</string>
     <string name="title_search_ward">Search ward</string>
     <string name="title_search_street">Search street</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="text_title_search">Input content to search</string>
+    <string name="hint_city">City, province</string>
+    <string name="hint_district">District</string>
+    <string name="hint_price">Price</string>
+    <string name="hint_ward">Ward</string>
+    <string name="title_highlight">Featured real estate</string>
+    <string name="title_detail">Detail</string>
+    <string name="title_house_hn">Estate in Ha Noi</string>
+    <string name="title_house_hcm">Estate in Ho Chi Minh</string>
+    <string name="hint_acreage">Acreage</string>
+    <string name="hint_front_width">Front width</string>
+    <string name="hint_street">Street</string>
+    <string name="title_done">Done</string>
+    <string name="error_select_ward">Select district before, please</string>
+    <string name="des_my_house">Owned real estate</string>
+    <string name="des_house_sold">Transaction done</string>
+    <string name="title_chat_now">Chat now</string>
+    <string name="title_broker">Brokers online</string>
 </resources>

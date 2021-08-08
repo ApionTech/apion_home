@@ -2,7 +2,9 @@ package com.apion.apionhome.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.map
 import com.apion.apionhome.base.RxViewModel
+import com.apion.apionhome.data.model.Range
 import com.apion.apionhome.data.model.local.District
 import com.apion.apionhome.data.model.local.ILocation
 import com.apion.apionhome.data.model.local.LocationName
@@ -44,12 +46,24 @@ class SearchViewModel(
     val street: LiveData<LocationName?>
         get() = _street
 
+    private val _price = MutableLiveData<Range?>()
+
+    val price: LiveData<Range?>
+        get() = _price
+
+    private val _acreage = MutableLiveData<Range?>()
+
+    val acreage: LiveData<Range?>
+        get() = _acreage
+
+    private val _frontWidth = MutableLiveData<Range?>()
+
+    val frontWidth: LiveData<Range?>
+        get() = _frontWidth
+
     private val empty = emptyList<ILocation>()
 
     init {
-//        Thread(Runnable {
-//            getAllProvince()
-//        }).start()
         getAllProvince()
     }
 
@@ -149,5 +163,30 @@ class SearchViewModel(
 
     fun setStreet(locationName: LocationName) {
         _street.value = locationName
+    }
+
+    fun setPrice(min: Int, max: Int) {
+        val range = _price.value?.apply {
+            this.min = min
+            this.max = max
+        } ?: Range(min, max, "ty")
+        _price.value = range
+    }
+
+    fun setAcreage(min: Int, max: Int) {
+        val range = _acreage.value?.apply {
+            this.min = min
+            this.max = max
+        } ?: Range(min, max, "m2")
+        _acreage.value = range
+    }
+
+
+    fun setFrontWidth(min: Int, max: Int) {
+        val range = _frontWidth.value?.apply {
+            this.min = min
+            this.max = max
+        } ?: Range(min, max, "m")
+        _frontWidth.value = range
     }
 }

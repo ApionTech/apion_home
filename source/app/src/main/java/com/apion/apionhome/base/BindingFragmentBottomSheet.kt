@@ -3,6 +3,7 @@ package com.apion.apionhome.base
 import android.annotation.SuppressLint
 import android.annotation.TargetApi
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -18,6 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
 import com.apion.apionhome.R
 import com.apion.apionhome.utils.showToast
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 abstract class BindingFragmentBottomSheet<T : ViewBinding>
@@ -51,6 +53,14 @@ abstract class BindingFragmentBottomSheet<T : ViewBinding>
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.setOnShowListener {
+            val dialog = it as BottomSheetDialog
+            val bottomSheet = binding.root
+            bottomSheet.let { sheet ->
+                dialog.behavior.peekHeight = sheet.height
+                sheet.parent.requestLayout()
+            }
+        }
         viewModel.errorException.observe(viewLifecycleOwner, {
             showToast(getString(R.string.default_error))
         })

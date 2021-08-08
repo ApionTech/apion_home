@@ -17,6 +17,9 @@ data class Dashboard(
     val userOnline: List<User>,
     @SerializedName("total_user")
     val totalUser: Int,
+    @SerializedName("featured_community")
+    val featureCommunity: List<House>
 ) {
+
     fun getUserOnlineCount() = userOnline.size
 }

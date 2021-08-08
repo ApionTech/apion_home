@@ -10,7 +10,6 @@ class SearchStreetFragment : SearchLocationBottomSheet<LocationName>() {
     }
 
     override fun onItemClick(item: LocationName) {
-        println("tittle ${item.prefix} ${item.name}")
         viewModel.setStreet(item)
     }
 

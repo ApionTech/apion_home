@@ -48,6 +48,8 @@ data class User(
     val boss: User?,
     @SerializedName("house_sold")
     val houseSold: List<House>,
+    @SerializedName("my_houses")
+    val myHouses: List<House>,
     @SerializedName("participants")
     val participants: List<Participant>,
     @SerializedName("houses_bookmark")

@@ -28,4 +28,6 @@ data class LocationName(
     override fun toString(): String {
         return "${getContent()}${getTitle()}".removeSpecific()
     }
+
+    fun getNameLocation() = "$prefix $name"
 }

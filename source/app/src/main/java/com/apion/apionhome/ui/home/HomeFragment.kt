@@ -1,172 +1,134 @@
 package com.apion.apionhome.ui.home
 
-import android.view.inputmethod.EditorInfo
-import androidx.core.widget.doOnTextChanged
+import android.os.Handler
+import android.os.Looper
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2
 import com.apion.apionhome.R
 import com.apion.apionhome.base.BindingFragment
-import com.apion.apionhome.base.BindingFragmentPickImage
-import com.apion.apionhome.data.model.community.Community
-import com.apion.apionhome.data.model.local.District
-import com.apion.apionhome.data.model.local.LocationName
-import com.apion.apionhome.data.model.local.Province
+import com.apion.apionhome.data.model.House
+import com.apion.apionhome.data.model.User
+import com.apion.apionhome.data.model.dashboard.Banner
 import com.apion.apionhome.databinding.FragmentHomeBinding
-import com.apion.apionhome.ui.search.SearchLocationBottomSheet
+import com.apion.apionhome.ui.adapter.HouseAdapter
+import com.apion.apionhome.ui.adapter.ImageSliderAdapter
+import com.apion.apionhome.ui.adapter.UserOnlineAdapter
 import com.apion.apionhome.ui.search.SearchViewModel
 import com.apion.apionhome.viewmodel.CommunityViewModel
 import com.apion.apionhome.viewmodel.HouseViewModel
+import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment :
-    BindingFragmentPickImage<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
+    BindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
 
     override val viewModel by sharedViewModel<HomeViewModel>()
 
-    private val houseViewModel by viewModel<HouseViewModel>()
-
-    private val communityViewModel by viewModel<CommunityViewModel>()
-
     private val searchViewModel by sharedViewModel<SearchViewModel>()
 
-    private val pass = CharArray(4)
+    private val sliderHandler = Handler(Looper.getMainLooper())
+
+    private val adapterImage = ImageSliderAdapter(::onItemBannerClick)
+
+    private val adapterFeature = HouseAdapter(::onItemHouseClick)
+
+    private val adapterHanoi = HouseAdapter(::onItemHouseClick)
+
+    private val adapterSaiGon = HouseAdapter(::onItemHouseClick)
+
+    private val adapterUserOnline = UserOnlineAdapter(::onItemUserOnlineClick, ::onChatNowClick)
+
+    private var isCheck = false
+
+    private val runnable by lazy {
+        Runnable {
+            if (isCheck) {
+                var current = binding.imageSlider.currentItem
+                if (adapterImage.itemCount - 1 == current) {
+                    current = 0
+                } else {
+                    current++
+                }
+                binding.imageSlider.currentItem = current
+            }
+        }
+    }
 
     override fun setupView() {
+        activity?.window?.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.color_tropical_rain)
         binding.lifecycleOwner = this
         binding.searchVM = searchViewModel
         binding.homeVM = viewModel
+        binding.recyclerViewFeature.adapter = adapterFeature
+        binding.recyclerViewHaNoi.adapter = adapterHanoi
+        binding.recyclerViewSaiGon.adapter = adapterSaiGon
+        binding.pagerUserOnline.adapter = adapterUserOnline
+        setupBanner()
         setupListener()
     }
 
-    override fun onImagesSelect(images: List<String>) {
-//        houseViewModel.house.value?.let {
-//            houseViewModel.updateHouse(images, it)
-//        }
-        communityViewModel.createCommunity(
-            images.firstOrNull(),
-            images.getOrNull(1),
-            Community(
-                name = "Yên Thế Hạ",
-                district = "Yên Thế",
-                shortDesc = "Cộng đồng anh em bất động sản Yên Thế"
-            )
-        )
-    }
-
-    override fun onResume() {
-        super.onResume()
-        binding.apply {
-            textShowPass.setOnClickListener {
-                viewModel.setShowPass()
-            }
-            textInput1.apply {
-                requestFocus()
-                setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        textInput1.setSelection(textInput1.text.length)
-                    }
-                }
-                doOnTextChanged { _, _, _, _ ->
-                    if (textInput1.text?.length == 1 && textInput1.text[0] != pass[0]) {
-                        println("text ${textInput1.text?.get(0)}")
-                        pass[0] = textInput1.text?.get(0) ?: '*'
-                        textInput1.setText(pass[0].toString())
-                        textInput2.requestFocus()
-                    } else if (textInput1.text?.length == 0) {
-                        pass[0] = '*'
-                    }
-                }
-            }
-
-            textInput2.apply {
-                setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        textInput2.setSelection(textInput2.text.length)
-                    }
-                }
-                doOnTextChanged { _, _, _, _ ->
-                    if (textInput2.text?.length == 1 && textInput2.text[0] != pass[1]) {
-                        pass[1] = textInput2.text?.get(0) ?: '*'
-                        textInput2.setText(pass[1].toString())
-                        textInput3.requestFocus()
-                    } else if (textInput2.text?.length == 0) {
-                        pass[1] = '*'
-                        textInput1.requestFocus()
-                    }
-                }
-            }
-            textInput3.apply {
-                setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        textInput3.setSelection(textInput3.text.length)
-                    }
-                }
-                doOnTextChanged { _, _, _, _ ->
-                    if (textInput3.text?.length == 1 && textInput3.text[0] != pass[2]) {
-                        pass[2] = textInput3.text?.get(0) ?: '*'
-                        textInput3.setText(pass[2].toString())
-                        textInputDone.requestFocus()
-                    } else if (textInput3.text?.length == 0) {
-                        pass[2] = '*'
-                        textInput2.requestFocus()
-                    }
-                }
-            }
-            textInputDone.apply {
-                setOnFocusChangeListener { _, hasFocus ->
-                    if (hasFocus) {
-                        println("lenght ${textInputDone.text.length}")
-                        textInputDone.setSelection(textInputDone.text.length)
-                    }
-                }
-                doOnTextChanged { _, _, _, _ ->
-                    if (textInputDone.text?.length == 1 && textInputDone.text[0] != pass[3]) {
-                        pass[3] = textInputDone.text?.get(0) ?: '*'
-                        textInputDone.setText(pass[3].toString())
-                        textInputDone.onEditorAction(EditorInfo.IME_ACTION_DONE)
-                        println(pass)
-                    } else if (textInputDone.text?.length == 0) {
-                        pass[3] = '*'
-                        textInput3.requestFocus()
-                    }
-                    textInputDone.setSelection(textInputDone.text.length)
-                }
-            }
-        }
-    }
-
     private fun setupListener() {
-        binding.buttonAddImage.setOnClickListener {
-            pickImageSafety()
+        binding.layoutHeader.layoutPrice.setOnClickListener {
+            findNavController().navigate(R.id.actionToBottomSheetPriceAcrea)
         }
 
-        binding.buttonDetailHouseImage.setOnClickListener {
-            println("click")
-            findNavController().navigate(R.id.actionToDetail)
-        }
-
-        binding.buttonSearchProvince.setOnClickListener {
+        binding.layoutHeader.editTextCity.setOnClickListener {
             findNavController().navigate(R.id.actionToSearchProvinceFragment)
         }
 
-        binding.buttonSearchDistrict.setOnClickListener {
+        binding.layoutHeader.editTextDistrict.setOnClickListener {
             findNavController().navigate(R.id.actionToSearchDistrictFragment)
         }
 
-        binding.buttonSearchWard.setOnClickListener {
+        binding.layoutHeader.editTextWard.setOnClickListener {
             if (searchViewModel.district.value != null) {
                 findNavController().navigate(R.id.actionToSearchWardFragment)
             } else {
-                showToast("Vui lòng chọn quận, huyện trước")
+                showToast(getString(R.string.error_select_ward))
             }
         }
 
-        binding.buttonSearchStreet.setOnClickListener {
+        binding.layoutHeader.editTextStreet.setOnClickListener {
             if (searchViewModel.district.value != null) {
                 findNavController().navigate(R.id.actionToSearchStreetFragment)
             } else {
-                showToast("Vui lòng chọn quận, huyện trước")
+                showToast(getString(R.string.error_select_ward))
             }
         }
+    }
+
+    private fun setupBanner() {
+        isCheck = true
+        binding.imageSlider.adapter = adapterImage
+        TabLayoutMediator(binding.tabLayout, binding.imageSlider) { _, _ ->
+        }.attach()
+        binding.imageSlider.registerOnPageChangeCallback(object :
+            ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                sliderHandler.removeCallbacks(runnable)
+                sliderHandler.postDelayed(runnable, 3000)
+            }
+        })
+    }
+
+    private fun onItemBannerClick(banner: Banner) {
+        println(banner.link)
+    }
+
+    private fun onItemHouseClick(house: House) {
+        println(house)
+    }
+
+
+    private fun onChatNowClick(user: User) {
+        println(user)
+    }
+
+    private fun onItemUserOnlineClick(user: User) {
+        println(user)
     }
 }

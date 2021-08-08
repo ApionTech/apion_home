@@ -1,6 +1,7 @@
 package com.apion.apionhome.data.model
 
 import com.google.gson.annotations.SerializedName
+import kotlin.math.roundToInt
 
 data class House(
     @SerializedName("id")
@@ -27,6 +28,8 @@ data class House(
     val address: String,
     @SerializedName("price")
     val price: Long,
+    @SerializedName("frontWidth")
+    val frontWidth: Double,
     @SerializedName("acreage")
     val acreage: Int,
     @SerializedName("homeDirection")
@@ -56,4 +59,29 @@ data class House(
 
     override fun areContentsTheSame(newItem: GeneraEntity): Boolean =
         newItem is House && this == newItem
+
+    fun getPriceConvert(): String {
+        return when {
+            price / 1000000000.0 >= 1.0 -> {
+                val value = price / 1000000000.0
+                if (checkPrice(value)) return "${value.roundToInt()} tỷ"
+                else return "$value tỷ"
+            }
+            price / 1000000.0 >= 1.0 -> {
+                val value = price / 1000000.0
+                if (checkPrice(value)) return "${value.roundToInt()} triệu"
+                else return "$value triệu"
+            }
+            price / 1000.0 >= 1.0 -> {
+                val value = price / 1000.0
+                if (checkPrice(value)) return "${value.roundToInt()} nghìn"
+                else return "$value nghìn"
+            }
+            else -> "$price đồng"
+        }
+    }
+
+    fun checkPrice(number: Double): Boolean {
+        return number.roundToInt() - number == 0.0
+    }
 }

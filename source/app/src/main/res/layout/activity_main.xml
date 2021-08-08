@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_marginBottom="?attr/actionBarSize"
+        android:layout_marginBottom="@dimen/dp_70"
         app:defaultNavHost="true"
         app:layout_anchor="@id/bottomAppBar"
         app:navGraph="@navigation/mobile_navigation" />
@@ -20,9 +20,10 @@
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-<!--   -->
+        android:layout_height="@dimen/dp_48"
+        android:layout_gravity="bottom"
+        app:contentInsetStart="0dp">
+
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
@@ -37,7 +38,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_baseline_add_24"
-        app:layout_anchor="@id/bottomAppBar" />
+        android:src="@drawable/ic_float"
+        app:fabCustomSize="@dimen/dp_48"
+        app:layout_anchor="@id/bottomAppBar"
+        app:maxImageSize="@dimen/dp_18"
+        app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
