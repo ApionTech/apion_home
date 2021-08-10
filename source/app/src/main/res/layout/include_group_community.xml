@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="yourGroups"
+            type="java.util.List" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewFeature"
+            data="@{yourGroups}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_8"
+            android:fitsSystemWindows="true"
+            android:orientation="horizontal"
+            android:visibility="@{yourGroups.size() == 0 ? View.GONE :View.VISIBLE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/TextNormal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/title_view_all"
+            android:textColor="@color/color_tropical_rain"
+            android:visibility="@{yourGroups.size() == 0 ? View.GONE :View.VISIBLE}"
+            app:layout_constraintEnd_toEndOf="@+id/recyclerViewFeature"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFeature" />
+
+
+        <ImageView
+            android:id="@+id/imageLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_logo_apion_home"
+            android:visibility="@{yourGroups.size() == 0 ? View.VISIBLE :View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/dp_24"
+            android:layout_marginTop="@dimen/dp_16"
+            android:text="@string/text_community_empty"
+            android:textAlignment="center"
+            android:visibility="@{yourGroups.size() == 0 ? View.VISIBLE :View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageLogo" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

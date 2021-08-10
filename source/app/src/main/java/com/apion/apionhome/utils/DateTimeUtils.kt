@@ -13,7 +13,7 @@ fun getCurrentDateTime(): Date {
 }
 
 object TimeFormat {
-    const val TIME_FORMAT_API = "yyyy-MM-dd'T'HH:mm:ssZ"
+    const val TIME_FORMAT_API = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     const val HOUR_FORMAT = "HH:mm"
     const val TIME_FORMAT_APP = "EEE, dd MMM HH:mm"
     const val TIME_FORMAT_APP_EXPAND = "EEE, dd MMM yyyy"

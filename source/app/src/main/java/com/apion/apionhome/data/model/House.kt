@@ -1,8 +1,14 @@
 package com.apion.apionhome.data.model
 
+import android.os.Parcelable
+import com.apion.apionhome.utils.*
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.math.roundToInt
 
+@Parcelize
 data class House(
     @SerializedName("id")
     val id: Int,
@@ -31,7 +37,7 @@ data class House(
     @SerializedName("frontWidth")
     val frontWidth: Double,
     @SerializedName("acreage")
-    val acreage: Int,
+    val acreage: Double,
     @SerializedName("homeDirection")
     val homeDirection: String,
     @SerializedName("bedrooms")
@@ -52,7 +58,7 @@ data class House(
     val createdAt: String,
     @SerializedName("updated_at")
     val updatedAt: String,
-) : GeneraEntity {
+) : GeneraEntity, Parcelable {
 
     override fun areItemsTheSame(newItem: GeneraEntity): Boolean =
         newItem is House && this.id == newItem.id
@@ -81,7 +87,21 @@ data class House(
         }
     }
 
-    fun checkPrice(number: Double): Boolean {
+    fun getDetailAddress(): String {
+        return "$address $street, $ward, $district, $province"
+    }
+
+    fun getCreateDate(): String {
+        val date = SimpleDateFormat(
+            TimeFormat.TIME_FORMAT_API,
+            Locale.getDefault()
+        ).parse(createdAt)
+        return date?.let {
+            date.toString(TimeFormat.DATE_TIME_FORMAT_APP_FULL)
+        } ?: ""
+    }
+
+    private fun checkPrice(number: Double): Boolean {
         return number.roundToInt() - number == 0.0
     }
 }

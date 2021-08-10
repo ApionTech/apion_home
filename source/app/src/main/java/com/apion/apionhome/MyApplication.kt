@@ -30,6 +30,6 @@ class MyApplication : Application() {
     }
 
     companion object {
-        var sessionUser: MutableLiveData<User> = MutableLiveData()
+        var sessionUser: MutableLiveData<User?> = MutableLiveData(null)
     }
 }

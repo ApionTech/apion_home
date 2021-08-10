@@ -1,8 +1,11 @@
 package com.apion.apionhome.data.model
 
+import android.os.Parcelable
 import com.apion.apionhome.data.model.community.Participant
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class User(
     @SerializedName("id")
     val id: Int,
@@ -43,18 +46,18 @@ data class User(
     @SerializedName("updated_at")
     val updated_at: String,
     @SerializedName("my_staff")
-    val myStaff: List<User>,
+    val myStaff: List<User>?,
     @SerializedName("boss")
-    val boss: User?,
+    val boss: User? = null,
     @SerializedName("house_sold")
-    val houseSold: List<House>,
+    val houseSold: List<House>?,
     @SerializedName("my_houses")
-    val myHouses: List<House>,
+    val myHouses: List<House>?,
     @SerializedName("participants")
-    val participants: List<Participant>,
+    val participants: List<Participant>?,
     @SerializedName("houses_bookmark")
-    val bookmarks: List<BookMark>,
-) : GeneraEntity {
+    val bookmarks: List<BookMark>?,
+) : GeneraEntity, Parcelable {
 
     override fun areItemsTheSame(newItem: GeneraEntity): Boolean =
         newItem is User && this.id == newItem.id

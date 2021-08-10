@@ -7,7 +7,7 @@
         android:title="Trang chủ" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search"
         android:title="Tìm kiếm" />
 
@@ -16,7 +16,7 @@
         android:title="" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_community"
         android:icon="@drawable/ic_community"
         android:title="Cộng đồng" />
     <item

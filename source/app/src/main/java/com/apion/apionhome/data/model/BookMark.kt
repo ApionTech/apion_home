@@ -1,10 +1,11 @@
 package com.apion.apionhome.data.model
 
-import com.apion.apionhome.data.model.GeneraEntity
-import com.apion.apionhome.data.model.House
-import com.apion.apionhome.data.model.User
-import com.google.gson.annotations.SerializedName
 
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class BookMark(
     @SerializedName("id")
     val id: Int,
@@ -16,7 +17,7 @@ data class BookMark(
     val user: User,
     @SerializedName("house")
     val house: House,
-) : GeneraEntity {
+) : GeneraEntity, Parcelable {
 
     override fun areItemsTheSame(newItem: GeneraEntity): Boolean =
         newItem is BookMark && this.id == newItem.id

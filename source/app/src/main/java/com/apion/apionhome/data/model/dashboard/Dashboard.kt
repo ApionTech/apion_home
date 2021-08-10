@@ -2,6 +2,7 @@ package com.apion.apionhome.data.model.dashboard
 
 import com.apion.apionhome.data.model.House
 import com.apion.apionhome.data.model.User
+import com.apion.apionhome.data.model.community.Community
 import com.google.gson.annotations.SerializedName
 
 data class Dashboard(
@@ -18,7 +19,9 @@ data class Dashboard(
     @SerializedName("total_user")
     val totalUser: Int,
     @SerializedName("featured_community")
-    val featureCommunity: List<House>
+    val featureCommunity: List<House>,
+    @SerializedName("communities")
+    val communities: List<Community>
 ) {
 
     fun getUserOnlineCount() = userOnline.size

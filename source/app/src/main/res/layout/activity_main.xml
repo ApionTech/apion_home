@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="top"
-        android:layout_marginBottom="@dimen/dp_70"
+        android:layout_marginBottom="@dimen/dp_44"
         app:defaultNavHost="true"
         app:layout_anchor="@id/bottomAppBar"
         app:navGraph="@navigation/mobile_navigation" />

@@ -6,6 +6,7 @@ import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.databinding.BindingAdapter
@@ -15,11 +16,10 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.bumptech.glide.request.transition.DrawableCrossFadeFactory
 
-@BindingAdapter("image")
-fun loadImage(view: ImageView, imageUrl: String?) {
+@BindingAdapter(value = ["image", "sex"], requireAll = false)
+fun loadImage(view: ImageView, imageUrl: String?, sex: String?) {
     val animationDrawable =
         ContextCompat.getDrawable(view.context, R.drawable.gradient_list) as AnimationDrawable
-
     animationDrawable.apply {
         setEnterFadeDuration(2000)
         setExitFadeDuration(4000)
@@ -35,6 +35,10 @@ fun loadImage(view: ImageView, imageUrl: String?) {
             .transition(withCrossFade(factory))
             .error(R.drawable.img_no_image_to_show)
             .into(view)
+    } else if (!sex.isNullOrEmpty() && sex == "Male") {
+        view.setImageDrawable(AppCompatResources.getDrawable(view.context, R.drawable.img_male))
+    } else if (!sex.isNullOrEmpty() && sex == "Female") {
+        view.setImageDrawable(AppCompatResources.getDrawable(view.context, R.drawable.img_female))
     }
 }
 

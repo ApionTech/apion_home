@@ -12,8 +12,8 @@
             type="java.lang.Integer" />
 
         <variable
-            name="images"
-            type="java.util.List" />
+            name="detailVM"
+            type="com.apion.apionhome.ui.detail.DetailViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/imageDetail"
-            dataSlider="@{images}"
+            dataSlider="@{detailVM.houseDetail.images}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipChildren="false"
@@ -35,20 +35,31 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
-
-
-        </androidx.viewpager2.widget.ViewPager2>
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_48"
-            android:text="@{current + `/` + images.size()}"
+            android:text="@{current + `/` + detailVM.houseDetail.images.size()}"
             android:textColor="@color/white"
             android:visibility="@{current!=null? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="@+id/imageDetail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewCancel"
+            style="@style/TextHighlight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_16"
+            android:background="@drawable/ripple"
+            android:text="@string/tittle_cancel"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

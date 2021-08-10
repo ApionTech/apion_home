@@ -20,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.apion.apionhome.R
+import com.apion.apionhome.utils.createProgressDialog
 import com.apion.apionhome.utils.showToast
 
 typealias Inflate<T> = (LayoutInflater, ViewGroup?, Boolean) -> T
@@ -33,6 +34,10 @@ abstract class BindingFragment<T : ViewBinding>
 
     protected val binding: T
         get() = _binding ?: throw IllegalStateException(EXCEPTION)
+
+    private val dialog by lazy {
+        requireContext().createProgressDialog()
+    }
 
     private val requestMultiplePermissions =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
@@ -57,6 +62,9 @@ abstract class BindingFragment<T : ViewBinding>
         super.onViewCreated(view, savedInstanceState)
         viewModel.errorException.observe(viewLifecycleOwner, {
             showToast(getString(R.string.default_error))
+        })
+        viewModel.isLoading.observe(viewLifecycleOwner, {
+            if (it) dialog.show() else dialog.dismiss()
         })
         setupView()
     }

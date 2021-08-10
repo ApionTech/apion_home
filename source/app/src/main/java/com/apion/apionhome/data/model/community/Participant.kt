@@ -1,10 +1,13 @@
 package com.apion.apionhome.data.model.community
 
+import android.os.Parcelable
 import com.apion.apionhome.data.model.GeneraEntity
 import com.apion.apionhome.data.model.House
 import com.apion.apionhome.data.model.User
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class Participant(
     @SerializedName("id")
     val id: Int,
@@ -16,7 +19,7 @@ data class Participant(
     val user: User,
     @SerializedName("community")
     val community: Community,
-) : GeneraEntity {
+) : GeneraEntity, Parcelable {
 
     override fun areItemsTheSame(newItem: GeneraEntity): Boolean =
         newItem is Participant && this.id == newItem.id

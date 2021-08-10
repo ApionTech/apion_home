@@ -56,9 +56,13 @@ class HomeFragment :
         }
     }
 
-    override fun setupView() {
+    override fun onResume() {
+        super.onResume()
         activity?.window?.statusBarColor =
             ContextCompat.getColor(requireContext(), R.color.color_tropical_rain)
+    }
+
+    override fun setupView() {
         binding.lifecycleOwner = this
         binding.searchVM = searchViewModel
         binding.homeVM = viewModel
@@ -100,6 +104,13 @@ class HomeFragment :
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        isCheck = false
+        activity?.window?.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.color_apple)
+    }
+
     private fun setupBanner() {
         isCheck = true
         binding.imageSlider.adapter = adapterImage
@@ -120,7 +131,8 @@ class HomeFragment :
     }
 
     private fun onItemHouseClick(house: House) {
-        println(house)
+        val destination = HomeFragmentDirections.actionToDetail(house)
+        findNavController().navigate(destination)
     }
 
 
