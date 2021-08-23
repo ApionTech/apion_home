@@ -49,9 +49,9 @@ fun joinCommunity(view: Button, communityId: Int) {
     if (isJoin) {
         view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.color_harp))
         view.text = view.context.resources.getString(R.string.title_out)
-        view.setTextColor(ContextCompat.getColor(view.context, R.color.color_tropical_rain))
+        view.setTextColor(ContextCompat.getColor(view.context, R.color.color_primary))
     } else {
-        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.color_tropical_rain))
+        view.setBackgroundColor(ContextCompat.getColor(view.context, R.color.color_primary))
         view.text = view.context.resources.getString(R.string.title_join)
         view.setTextColor(Color.WHITE)
     }

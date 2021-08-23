@@ -56,12 +56,6 @@ class HomeFragment :
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        activity?.window?.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.color_tropical_rain)
-    }
-
     override fun setupView() {
         binding.lifecycleOwner = this
         binding.searchVM = searchViewModel
@@ -107,8 +101,6 @@ class HomeFragment :
     override fun onStop() {
         super.onStop()
         isCheck = false
-        activity?.window?.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.color_apple)
     }
 
     private fun setupBanner() {

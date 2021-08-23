@@ -34,8 +34,6 @@ class HomeFragmentTmp :
     private val pass = CharArray(4)
 
     override fun setupView() {
-        activity?.window?.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.color_tropical_rain)
         binding.lifecycleOwner = this
         binding.searchVM = searchViewModel
         binding.homeVM = viewModel

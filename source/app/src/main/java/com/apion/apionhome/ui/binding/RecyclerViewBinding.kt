@@ -8,6 +8,7 @@ import com.apion.apionhome.base.BindAbleAdapter
 @Suppress("UNCHECKED_CAST")
 @BindingAdapter("data")
 fun <T> setRecyclerViewProperties(recyclerView: RecyclerView, data: List<T>?) {
+    println("data $data")
     (recyclerView.adapter as? BindAbleAdapter<List<T>>)?.setData(data)
 }
 

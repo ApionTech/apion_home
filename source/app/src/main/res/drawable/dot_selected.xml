@@ -5,7 +5,7 @@
     android:thickness="@dimen/dp_4"
     android:useLevel="false">
 
-    <solid android:color="@color/color_tropical_rain" />
+    <solid android:color="@color/color_primary" />
 
     <stroke
         android:width="@dimen/dp_1"

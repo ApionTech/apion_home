@@ -31,7 +31,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearanceOverlay="@style/roundImageView48"
-            app:strokeColor="@color/color_tropical_rain"
+            app:strokeColor="@color/color_second_primary"
             app:strokeWidth="@dimen/dp_1" />
 
         <TextView

@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dp_24"
             android:background="@drawable/bg_rectangle_trans"
-            android:backgroundTint="@color/color_tropical_rain"
+            android:backgroundTint="@color/color_primary"
             android:paddingHorizontal="@dimen/dp_8"
             android:text="@{house.getPriceConvert()}"
             app:layout_constraintBottom_toBottomOf="parent"

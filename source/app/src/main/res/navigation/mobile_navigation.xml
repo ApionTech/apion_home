@@ -51,7 +51,7 @@
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.apion.apionhome.ui.search.SearchLocationBottomSheet" />
+        android:name="com.apion.apionhome.ui.search.SearchProvinceFragment" />
 
     <fragment
         android:id="@+id/navigation_community"

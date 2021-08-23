@@ -19,6 +19,10 @@ class HomeViewModel(
     val dashBoard: LiveData<Dashboard>
         get() = _dashBoard
 
+    private val _countNoti = MutableLiveData<Int>(10)
+
+    val countNoti: LiveData<Int>
+        get() = _countNoti
 
     private val _districts = MutableLiveData<List<District>>()
 
