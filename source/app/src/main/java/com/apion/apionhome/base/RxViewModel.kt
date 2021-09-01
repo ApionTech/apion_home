@@ -21,4 +21,8 @@ open class RxViewModel : ViewModel() {
         disposables.clear()
         super.onCleared()
     }
+
+    open fun initData(){
+        println("init data")
+    }
 }

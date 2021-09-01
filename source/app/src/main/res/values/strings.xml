@@ -3,6 +3,7 @@
     <string name="app_name">Apion Home</string>
     <string name="tittle_retry">Thử lại</string>
     <string name="tittle_cancel">Hủy</string>
+    <string name="tittle_close">Đóng</string>
     <string name="tittle_exception_connect">Lỗi kết nối</string>
     <string name="message_exception_connect">Không thể kết nối internet.  Hãy kiểm tra kết nối internet hoặc WIFI</string>
     <string name="default_error">Đã có lỗi xảy ra…!</string>

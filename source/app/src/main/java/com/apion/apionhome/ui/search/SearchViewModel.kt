@@ -63,7 +63,8 @@ class SearchViewModel(
 
     private val empty = emptyList<ILocation>()
 
-    init {
+    override fun initData() {
+        super.initData()
         getAllProvince()
     }
 

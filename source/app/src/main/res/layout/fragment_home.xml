@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout2">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -19,295 +18,306 @@
             type="com.apion.apionhome.ui.search.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_home_scene">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutTop"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/color_second_primary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:id="@+id/titleHome"
-                style="@style/TextHighlight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:text="@string/title_home"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_22"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/buttonNotification"
-                android:layout_width="@dimen/dp_24"
-                android:layout_height="@dimen/dp_24"
-                android:layout_marginEnd="@dimen/dp_24"
-                android:background="@drawable/ripple"
-                android:src="@drawable/ic_notification"
-                app:layout_constraintBottom_toBottomOf="@+id/titleHome"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/titleHome" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/bg_badge"
-                android:gravity="center"
-                android:minWidth="@dimen/dp_18"
-                android:minHeight="@dimen/dp_18"
-                android:paddingHorizontal="@dimen/dp_2"
-                android:paddingVertical="@dimen/dp_1"
-                android:text="@{homeVM.countNoti+``}"
-                android:textColor="@color/white"
-                android:textSize="@dimen/sp_10"
-                android:visibility="@{homeVM.countNoti>0?View.VISIBLE:View.GONE}"
-                app:layout_constraintBottom_toTopOf="@+id/buttonNotification"
-                app:layout_constraintEnd_toEndOf="@+id/buttonNotification"
-                app:layout_constraintHorizontal_bias="0.1"
-                app:layout_constraintStart_toEndOf="@+id/buttonNotification"
-                app:layout_constraintTop_toTopOf="@+id/buttonNotification"
-                app:layout_constraintVertical_bias="0.1" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.legacy.widget.Space
-            android:id="@+id/space"
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_rectangle_bottom"
-            android:backgroundTint="@color/color_second_primary">
-
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/search"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/dp_36"
-                android:layout_marginHorizontal="@dimen/dp_16"
-                android:layout_marginTop="@dimen/dp_16"
-                android:layout_marginBottom="@dimen/dp_24"
-                android:background="@drawable/shape_bg_search"
-                android:focusableInTouchMode="true"
-                android:padding="@dimen/dp_4"
-                android:theme="@style/SearchViewTheme"
-                app:iconifiedByDefault="false"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:queryBackground="@null"
-                app:queryHint="@string/hint_input_search"
-                app:submitBackground="@null" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <include
-            android:id="@+id/layoutHeader"
-            layout="@layout/include_header_home"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:searchVM="@{searchVM}" />
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
-            android:id="@+id/scrollView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutHeader">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.constraintlayout.motion.widget.MotionLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                app:layoutDescription="@xml/fragment_home_scene">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/imageSlider"
-                    dataSlider="@{homeVM.dashBoard.banners}"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/dp_104"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageSlider"
-                    app:layout_constraintEnd_toEndOf="@id/imageSlider"
-                    app:layout_constraintStart_toStartOf="@+id/imageSlider"
-                    app:tabBackground="@drawable/tab_selector"
-                    app:tabGravity="center"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabPaddingEnd="@dimen/dp_8"
-                    app:tabPaddingStart="@dimen/dp_8"
-                    app:tabSelectedTextColor="@android:color/transparent"
-                    app:tabTextColor="@android:color/transparent" />
-
-                <TextView
-                    android:id="@+id/titleHighLight"
-                    style="@style/TextHighlight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:text="@string/title_highlight"
-                    android:textColor="@color/black"
-                    app:layout_constraintBottom_toBottomOf="@+id/buttonDetailHighlight"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/buttonDetailHighlight" />
-
-                <TextView
-                    android:id="@+id/buttonDetailHighlight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:drawableEnd="@drawable/ic_next_ar"
-                    android:drawablePadding="@dimen/dp_4"
-                    android:text="@string/title_view_all"
-                    android:textColor="@color/color_second_primary"
-                    android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewFeature"
-                    data="@{homeVM.dashBoard.feature}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:fitsSystemWindows="true"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/buttonDetailHighlight" />
-
-                <TextView
-                    android:id="@+id/titleHaNoi"
-                    style="@style/TextHighlight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:text="@string/title_house_hn"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewFeature" />
-
-                <TextView
-                    android:id="@+id/buttonDetaiHanoi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:text="@string/title_detail"
-                    android:textColor="@color/color_second_primary"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/titleHaNoi"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/titleHaNoi" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewHaNoi"
-                    data="@{homeVM.dashBoard.hanoiHouse}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:fitsSystemWindows="true"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleHaNoi" />
-
-                <TextView
-                    android:id="@+id/titleSaiGon"
-                    style="@style/TextHighlight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:text="@string/title_house_hcm"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewHaNoi" />
-
-                <TextView
-                    android:id="@+id/buttonDetaiSaiGon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_16"
-                    android:text="@string/title_detail"
-                    android:textColor="@color/color_second_primary"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/titleSaiGon"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/titleSaiGon" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewSaiGon"
-                    data="@{homeVM.dashBoard.saigonHouse}"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:fitsSystemWindows="true"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleSaiGon" />
-
-                <TextView
-                    android:id="@+id/titleUserOnline"
-                    style="@style/TextHighlight"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_16"
-                    android:text="@{@string/title_broker + ` `+homeVM.dashBoard.userOnline.size()+`/`+homeVM.dashBoard.totalUser}"
-                    android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewSaiGon" />
-
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/pagerUserOnline"
-                    dataSlider="@{homeVM.dashBoard.userOnline}"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutTop"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginHorizontal="@dimen/dp_16"
-                    android:layout_marginTop="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_32"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:overScrollMode="never"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_second_primary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/titleUserOnline" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/titleHome"
+                        style="@style/TextHighlight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_8"
+                        android:text="@string/title_home"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_22"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/buttonNotification"
+                        android:layout_width="@dimen/dp_24"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_marginEnd="@dimen/dp_24"
+                        android:background="@drawable/ripple"
+                        android:src="@drawable/ic_notification"
+                        app:layout_constraintBottom_toBottomOf="@+id/titleHome"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/titleHome" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_badge"
+                        android:gravity="center"
+                        android:minWidth="@dimen/dp_18"
+                        android:minHeight="@dimen/dp_18"
+                        android:paddingHorizontal="@dimen/dp_2"
+                        android:paddingVertical="@dimen/dp_1"
+                        android:text="@{homeVM.countNoti+``}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_10"
+                        android:visibility="@{homeVM.countNoti>0?View.VISIBLE:View.GONE}"
+                        app:layout_constraintBottom_toTopOf="@+id/buttonNotification"
+                        app:layout_constraintEnd_toEndOf="@+id/buttonNotification"
+                        app:layout_constraintHorizontal_bias="0.1"
+                        app:layout_constraintStart_toEndOf="@+id/buttonNotification"
+                        app:layout_constraintTop_toTopOf="@+id/buttonNotification"
+                        app:layout_constraintVertical_bias="0.1" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.legacy.widget.Space
+                    android:id="@+id/space"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_rectangle_bottom"
+                    android:backgroundTint="@color/color_second_primary">
+
+                    <androidx.appcompat.widget.SearchView
+                        android:id="@+id/search"
+                        android:layout_width="0dp"
+                        android:layout_height="@dimen/dp_36"
+                        android:layout_marginHorizontal="@dimen/dp_16"
+                        android:layout_marginTop="@dimen/dp_16"
+                        android:layout_marginBottom="@dimen/dp_24"
+                        android:background="@drawable/shape_bg_search"
+                        android:focusableInTouchMode="true"
+                        android:padding="@dimen/dp_4"
+                        android:theme="@style/SearchViewTheme"
+                        app:iconifiedByDefault="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:queryBackground="@null"
+                        app:queryHint="@string/hint_input_search"
+                        app:submitBackground="@null" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include
+                    android:id="@+id/layoutHeader"
+                    layout="@layout/include_header_home"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:searchVM="@{searchVM}" />
+
+                <androidx.core.widget.NestedScrollView
+                    android:id="@+id/scrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutHeader">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/imageSlider"
+                            dataSlider="@{homeVM.dashBoard.banners}"
+                            android:layout_width="0dp"
+                            android:layout_height="@dimen/dp_104"
+                            android:layout_marginHorizontal="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:overScrollMode="never"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tabLayout"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            app:layout_constraintBottom_toBottomOf="@+id/imageSlider"
+                            app:layout_constraintEnd_toEndOf="@id/imageSlider"
+                            app:layout_constraintStart_toStartOf="@+id/imageSlider"
+                            app:tabBackground="@drawable/tab_selector"
+                            app:tabGravity="center"
+                            app:tabIndicatorHeight="0dp"
+                            app:tabPaddingEnd="@dimen/dp_8"
+                            app:tabPaddingStart="@dimen/dp_8"
+                            app:tabSelectedTextColor="@android:color/transparent"
+                            app:tabTextColor="@android:color/transparent" />
+
+                        <TextView
+                            android:id="@+id/titleHighLight"
+                            style="@style/TextHighlight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:text="@string/title_highlight"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="@+id/buttonDetailHighlight"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/buttonDetailHighlight" />
+
+                        <TextView
+                            android:id="@+id/buttonDetailHighlight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:drawableEnd="@drawable/ic_next_ar"
+                            android:drawablePadding="@dimen/dp_4"
+                            android:text="@string/title_view_all"
+                            android:textColor="@color/color_second_primary"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewFeature"
+                            data="@{homeVM.dashBoard.feature}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:fitsSystemWindows="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/buttonDetailHighlight" />
+
+                        <TextView
+                            android:id="@+id/titleHaNoi"
+                            style="@style/TextHighlight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:text="@string/title_house_hn"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerViewFeature" />
+
+                        <TextView
+                            android:id="@+id/buttonDetaiHanoi"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:text="@string/title_detail"
+                            android:textColor="@color/color_second_primary"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/titleHaNoi"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/titleHaNoi" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewHaNoi"
+                            data="@{homeVM.dashBoard.hanoiHouse}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:fitsSystemWindows="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/titleHaNoi" />
+
+                        <TextView
+                            android:id="@+id/titleSaiGon"
+                            style="@style/TextHighlight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:text="@string/title_house_hcm"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerViewHaNoi" />
+
+                        <TextView
+                            android:id="@+id/buttonDetaiSaiGon"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/dp_16"
+                            android:text="@string/title_detail"
+                            android:textColor="@color/color_second_primary"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/titleSaiGon"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/titleSaiGon" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerViewSaiGon"
+                            data="@{homeVM.dashBoard.saigonHouse}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:fitsSystemWindows="true"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/titleSaiGon" />
+
+                        <TextView
+                            android:id="@+id/titleUserOnline"
+                            style="@style/TextHighlight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:text="@{@string/title_broker + ` `+homeVM.dashBoard.userOnline.size()+`/`+homeVM.dashBoard.totalUser}"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/recyclerViewSaiGon" />
+
+                        <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/pagerUserOnline"
+                            dataSlider="@{homeVM.dashBoard.userOnline}"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginHorizontal="@dimen/dp_16"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:layout_marginBottom="@dimen/dp_32"
+                            android:clipChildren="false"
+                            android:clipToPadding="false"
+                            android:overScrollMode="never"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/titleUserOnline" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.core.widget.NestedScrollView>
+            </androidx.constraintlayout.motion.widget.MotionLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

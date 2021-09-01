@@ -19,12 +19,6 @@ class UserViewModel(val userRepository: UserRepository) : RxViewModel() {
     val user: LiveData<User>
         get() = _user
 
-    //    0359926262
-    init {
-        getAllUser()
-        login("0359926262", "0000")
-    }
-
     fun getAllUser() {
         userRepository
             .getAllUsers()

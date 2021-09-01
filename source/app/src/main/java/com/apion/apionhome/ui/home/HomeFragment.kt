@@ -2,7 +2,6 @@ package com.apion.apionhome.ui.home
 
 import android.os.Handler
 import android.os.Looper
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.apion.apionhome.R
@@ -15,11 +14,8 @@ import com.apion.apionhome.ui.adapter.HouseAdapter
 import com.apion.apionhome.ui.adapter.ImageSliderAdapter
 import com.apion.apionhome.ui.adapter.UserOnlineAdapter
 import com.apion.apionhome.ui.search.SearchViewModel
-import com.apion.apionhome.viewmodel.CommunityViewModel
-import com.apion.apionhome.viewmodel.HouseViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment :
     BindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -66,6 +62,12 @@ class HomeFragment :
         binding.pagerUserOnline.adapter = adapterUserOnline
         setupBanner()
         setupListener()
+        setupRefresh()
+    }
+
+    override fun onConnectionAvailable() {
+        super.onConnectionAvailable()
+        viewModel.initData()
     }
 
     private fun setupListener() {
@@ -101,6 +103,16 @@ class HomeFragment :
     override fun onStop() {
         super.onStop()
         isCheck = false
+    }
+
+    private fun setupRefresh() {
+        binding.swipeLayout.setOnRefreshListener {
+            viewModel.getDashboard() {
+                println("done roi kia")
+                binding.swipeLayout.isRefreshing = false
+                binding.imageSlider.currentItem = 0
+            }
+        }
     }
 
     private fun setupBanner() {

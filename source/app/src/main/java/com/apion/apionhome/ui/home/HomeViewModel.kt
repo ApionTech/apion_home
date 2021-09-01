@@ -34,7 +34,7 @@ class HomeViewModel(
     val showPass: LiveData<Boolean>
         get() = _showPass
 
-    init {
+    override fun initData() {
         getDashboard()
     }
 
@@ -48,16 +48,18 @@ class HomeViewModel(
         _showPass.value = false
     }
 
-    fun getDashboard() {
+    fun getDashboard(onRefresh: (() -> Unit)? = null) {
         houseRepository
             .getDashboard()
             .setup()
             .subscribe(
                 {
                     _dashBoard.value = it
+                    onRefresh?.invoke()
                 }, {
                     it.printStackTrace()
                     error.value = it.message
+                    onRefresh?.invoke()
                 }
             )
     }

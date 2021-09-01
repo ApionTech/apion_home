@@ -15,10 +15,6 @@ class HouseViewModel(val houseRepository: HouseRepository) : RxViewModel() {
     val house: LiveData<House>
         get() = _house
 
-    init {
-        getHouseById(3)
-    }
-
     fun getHouseById(houseId: Int) {
         houseRepository
             .getHouseById(houseId)
