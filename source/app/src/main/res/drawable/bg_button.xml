@@ -4,5 +4,5 @@
         android:endColor="@color/color_primary"
         android:startColor="@color/color_second_primary"
         android:type="linear" />
-    <corners android:radius="@dimen/dp_4" />
+    <corners android:radius="@dimen/dp_8" />
 </shape>

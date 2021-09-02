@@ -53,12 +53,6 @@ abstract class SearchLocationBottomSheet<L : ILocation>() :
         disposeable?.dispose()
     }
 
-    private fun setupFullHeight(bottomSheet: View) {
-        val layoutParams = bottomSheet.layoutParams
-        layoutParams.height = WindowManager.LayoutParams.MATCH_PARENT
-        bottomSheet.layoutParams = layoutParams
-    }
-
     private fun onItemSearchClick(item: L) {
         onItemClick(item)
         findNavController().popBackStack()

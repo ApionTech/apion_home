@@ -1,5 +1,6 @@
 package com.apion.apionhome.di
 
+import com.apion.apionhome.base.RxViewModel
 import com.apion.apionhome.ui.detail.DetailViewModel
 import com.apion.apionhome.ui.home.HomeViewModel
 import com.apion.apionhome.ui.search.SearchViewModel
@@ -10,6 +11,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
+    viewModel { RxViewModel() }
     viewModel { HomeViewModel(get(), get()) }
     viewModel { UserViewModel(get()) }
     viewModel { HouseViewModel(get()) }

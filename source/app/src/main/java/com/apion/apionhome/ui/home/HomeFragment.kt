@@ -2,6 +2,8 @@ package com.apion.apionhome.ui.home
 
 import android.os.Handler
 import android.os.Looper
+import android.view.ViewTreeObserver
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.apion.apionhome.R
@@ -16,6 +18,8 @@ import com.apion.apionhome.ui.adapter.UserOnlineAdapter
 import com.apion.apionhome.ui.search.SearchViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.lang.IllegalStateException
+
 
 class HomeFragment :
     BindingFragment<FragmentHomeBinding>(FragmentHomeBinding::inflate) {
@@ -38,17 +42,29 @@ class HomeFragment :
 
     private var isCheck = false
 
+    private val observerVisible =
+        ViewTreeObserver.OnGlobalLayoutListener {
+            binding.swipeLayout.isEnabled = binding.layoutHeader.root.isVisible
+        }
+
     private val runnable by lazy {
         Runnable {
-            if (isCheck) {
-                var current = binding.imageSlider.currentItem
-                if (adapterImage.itemCount - 1 == current) {
-                    current = 0
-                } else {
-                    current++
-                }
-                binding.imageSlider.currentItem = current
+//            if (isCheck) {
+//                var current = binding.imageSlider.currentItem
+//                if (adapterImage.itemCount - 1 == current) {
+//                    current = 0
+//                } else {
+//                    current++
+//                }
+//                binding.imageSlider.currentItem = current
+//            }
+            var current = binding.imageSlider.currentItem
+            if (adapterImage.itemCount - 1 == current) {
+                current = 0
+            } else {
+                current++
             }
+            binding.imageSlider.currentItem = current
         }
     }
 
@@ -63,6 +79,7 @@ class HomeFragment :
         setupBanner()
         setupListener()
         setupRefresh()
+        setupSearchView()
     }
 
     override fun onConnectionAvailable() {
@@ -102,15 +119,19 @@ class HomeFragment :
 
     override fun onStop() {
         super.onStop()
-        isCheck = false
+        binding.layoutHeader.root.viewTreeObserver.removeOnGlobalLayoutListener(observerVisible)
+        sliderHandler.removeCallbacks(runnable)
+//        isCheck = false
     }
 
     private fun setupRefresh() {
-        binding.swipeLayout.setOnRefreshListener {
-            viewModel.getDashboard() {
-                println("done roi kia")
-                binding.swipeLayout.isRefreshing = false
-                binding.imageSlider.currentItem = 0
+        binding.swipeLayout.apply {
+            binding.layoutHeader.root.viewTreeObserver.addOnGlobalLayoutListener(observerVisible)
+            setOnRefreshListener {
+                viewModel.getDashboard() {
+                    binding.swipeLayout.isRefreshing = false
+                    binding.imageSlider.currentItem = 0
+                }
             }
         }
     }
@@ -128,6 +149,10 @@ class HomeFragment :
                 sliderHandler.postDelayed(runnable, 3000)
             }
         })
+    }
+
+    private fun setupSearchView() {
+        binding.search.clearFocus()
     }
 
     private fun onItemBannerClick(banner: Banner) {
