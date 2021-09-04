@@ -36,82 +36,16 @@ class CommunityFragment :
         binding.homeVM = viewModel
         binding.yourGroups =
             MyApplication.sessionUser.value?.participants ?: emptyList<Participant>()
-        binding.recyclerViewFeatureCommunity.adapter = postCommunityAdapter
-        binding.recyclerViewCommunity.adapter = communityAdapter
+        binding.layoutFeatureCommunity.recyclerViewFeatureCommunity.adapter = postCommunityAdapter
+        binding.layoutCommunity.recyclerViewCommunity.adapter = communityAdapter
         binding.recyclerViewMyCommunity.adapter = myCommunityAdapter
-//        MyApplication.sessionUser.observe(this, {
-//            it?.participants?.let {
-//                binding.yourGroups = it.map {
-//                    it.community
-//                }
-//            }
-//        })
-        val communities = mutableListOf(
-            Community(
-                id = 1,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 2,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 3,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 4,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 5,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 6,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 7,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 8,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-            Community(
-                id = 9,
-                name = "Bí kíp Hà Đông",
-                district = "Hà Đông",
-                shortDesc = "Không có gì để nói",
-                avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
-            ),
-        )
-        binding.yourGroups = communities
+        MyApplication.sessionUser.observe(this, {
+            it?.participants?.let {
+                binding.yourGroups = it.map {
+                    it.community
+                }
+            }
+        })
     }
 
     override fun onStop() {
@@ -132,3 +66,69 @@ class CommunityFragment :
         println(isJoinCommunity)
     }
 }
+
+//val communities = mutableListOf(
+//    Community(
+//        id = 1,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 2,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 3,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 4,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 5,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 6,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 7,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 8,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//    Community(
+//        id = 9,
+//        name = "Bí kíp Hà Đông",
+//        district = "Hà Đông",
+//        shortDesc = "Không có gì để nói",
+//        avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSKgtmqq16wYMn5m4QBExX-I7E_VUG-agO7A&usqp=CAU"
+//    ),
+//)

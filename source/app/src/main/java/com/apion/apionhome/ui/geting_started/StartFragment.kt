@@ -16,4 +16,11 @@ class StartFragment : BindingFragment<FragmentStartBinding>(FragmentStartBinding
             findNavController().navigate(R.id.actionToMain)
         }
     }
+
+    override fun onDisConnection() {
+        super.onDisConnection()
+        binding.buttonStart.setOnClickListener {
+            findNavController().navigate(R.id.actionToMain)
+        }
+    }
 }

@@ -127,19 +127,19 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/recyclerViewMyCommunity" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewFeatureCommunity"
-                    data="@{homeVM.dashBoard.featureCommunity}"
+                <include
+                    android:id="@+id/layoutFeatureCommunity"
+                    layout="@layout/include_feature_community"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_16"
                     android:layout_marginTop="@dimen/dp_8"
-                    android:fitsSystemWindows="true"
-                    android:orientation="horizontal"
+                    app:features="@{homeVM.dashBoard.featureCommunity}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/titleFeatureCommunity" />
+
 
                 <include
                     android:id="@+id/includeDeliver"
@@ -149,7 +149,7 @@
                     android:layout_marginTop="@dimen/dp_8"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerViewFeatureCommunity" />
+                    app:layout_constraintTop_toBottomOf="@+id/layoutFeatureCommunity" />
 
                 <TextView
                     android:id="@+id/titleCommunityDiscover"
@@ -164,17 +164,15 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/includeDeliver" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewCommunity"
-                    data="@{homeVM.dashBoard.communities}"
+                <include
+                    android:id="@+id/layoutCommunity"
+                    layout="@layout/include_community"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/dp_16"
                     android:layout_marginVertical="@dimen/dp_8"
                     android:layout_marginBottom="@dimen/dp_32"
-                    android:fitsSystemWindows="true"
-                    android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:communities="@{homeVM.dashBoard.communities}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"

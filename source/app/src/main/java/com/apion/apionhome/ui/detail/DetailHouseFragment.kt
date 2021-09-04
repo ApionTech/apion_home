@@ -34,19 +34,15 @@ class DetailHouseFragment :
 
     private val adapterRelated = HouseAdapter(::onItemHouseClick)
 
-    private var isCheck = false
-
     private val runnable by lazy {
         Runnable {
-            if (isCheck) {
-                var current = binding.imageSlider.currentItem
-                if (adapterImage.itemCount - 1 == current) {
-                    current = 0
-                } else {
-                    current++
-                }
-                binding.imageSlider.currentItem = current
+            var current = binding.imageSlider.currentItem
+            if (adapterImage.itemCount - 1 == current) {
+                current = 0
+            } else {
+                current++
             }
+            binding.imageSlider.currentItem = current
         }
     }
 
@@ -77,14 +73,11 @@ class DetailHouseFragment :
 
     override fun onStop() {
         super.onStop()
-        isCheck = false
+        sliderHandler.removeCallbacks(runnable)
     }
 
     private fun setupBanner() {
-        isCheck = true
         binding.imageSlider.adapter = adapterImage
-        TabLayoutMediator(binding.tabLayout, binding.imageSlider) { _, _ ->
-        }.attach()
         binding.imageSlider.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {

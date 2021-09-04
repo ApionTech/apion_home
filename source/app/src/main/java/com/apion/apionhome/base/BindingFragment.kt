@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import com.apion.apionhome.R
+import com.apion.apionhome.ui.binding.setupShimmerList
 import com.apion.apionhome.utils.createProgressDialog
 import com.apion.apionhome.utils.showToast
 import kotlinx.coroutines.Dispatchers
@@ -88,6 +89,7 @@ abstract class BindingFragment<T : ViewBinding>
         viewModel.isLoading.observe(viewLifecycleOwner, {
             if (it) dialog.show() else dialog.dismiss()
         })
+        setupView()
         try {
             val builder = NetworkRequest.Builder()
             (requireActivity().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
@@ -130,11 +132,6 @@ abstract class BindingFragment<T : ViewBinding>
                 }
             }
         }
-    }
-
-    open fun onConnectionAvailable() {
-        println("van vao setup view")
-        setupView()
     }
 
     open fun onDisConnection() {
@@ -215,6 +212,8 @@ abstract class BindingFragment<T : ViewBinding>
     }
 
     abstract fun setupView()
+
+    open fun onConnectionAvailable() {}
 
     companion object {
         private const val EXCEPTION = "Binding only is valid after onCreateView"

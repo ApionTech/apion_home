@@ -79,21 +79,21 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabLayout"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
+                    android:layout_margin="@dimen/dp_8"
+                    android:background="@drawable/bg_rectangle_trans"
+                    android:backgroundTint="@color/black_trans_70"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingHorizontal="@dimen/dp_4"
+                    android:paddingVertical="@dimen/dp_1"
+                    android:text="@{detailVM.houseDetail.images.size()+``}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_11"
+                    app:drawableStartCompat="@drawable/ic_image"
                     app:layout_constraintBottom_toBottomOf="@+id/imageSlider"
-                    app:layout_constraintEnd_toEndOf="@id/imageSlider"
-                    app:layout_constraintStart_toStartOf="@+id/imageSlider"
-                    app:tabBackground="@drawable/tab_selector"
-                    app:tabGravity="center"
-                    app:tabIndicatorHeight="0dp"
-                    app:tabPaddingEnd="@dimen/dp_8"
-                    app:tabPaddingStart="@dimen/dp_8"
-                    app:tabSelectedTextColor="@android:color/transparent"
-                    app:tabTextColor="@android:color/transparent" />
+                    app:layout_constraintEnd_toEndOf="@+id/imageSlider" />
 
                 <TextView
                     android:id="@+id/titleType"

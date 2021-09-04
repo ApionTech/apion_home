@@ -17,4 +17,7 @@ class SearchProvinceFragment : SearchLocationBottomSheet<Province>() {
     override fun onSearch(query: String) {
         viewModel.searchProvince(query)
     }
+
+    override fun onConnectionAvailable() {
+    }
 }

@@ -49,32 +49,21 @@ class HomeFragment :
 
     private val runnable by lazy {
         Runnable {
-//            if (isCheck) {
-//                var current = binding.imageSlider.currentItem
-//                if (adapterImage.itemCount - 1 == current) {
-//                    current = 0
-//                } else {
-//                    current++
-//                }
-//                binding.imageSlider.currentItem = current
-//            }
-            var current = binding.imageSlider.currentItem
+            var current = binding.layoutBanner.imageSlider.currentItem
             if (adapterImage.itemCount - 1 == current) {
                 current = 0
             } else {
                 current++
             }
-            binding.imageSlider.currentItem = current
+            binding.layoutBanner.imageSlider.currentItem = current
         }
     }
 
     override fun setupView() {
         binding.lifecycleOwner = this
-        binding.searchVM = searchViewModel
-        binding.homeVM = viewModel
-        binding.recyclerViewFeature.adapter = adapterFeature
-        binding.recyclerViewHaNoi.adapter = adapterHanoi
-        binding.recyclerViewSaiGon.adapter = adapterSaiGon
+        binding.layoutFeature.recyclerViewFeature.adapter = adapterFeature
+        binding.layoutHanoi.recyclerViewFeature.adapter = adapterHanoi
+        binding.layoutSaigon.recyclerViewFeature.adapter = adapterSaiGon
         binding.pagerUserOnline.adapter = adapterUserOnline
         setupBanner()
         setupListener()
@@ -83,7 +72,8 @@ class HomeFragment :
     }
 
     override fun onConnectionAvailable() {
-        super.onConnectionAvailable()
+        binding.searchVM = searchViewModel
+        binding.homeVM = viewModel
         viewModel.initData()
     }
 
@@ -121,7 +111,6 @@ class HomeFragment :
         super.onStop()
         binding.layoutHeader.root.viewTreeObserver.removeOnGlobalLayoutListener(observerVisible)
         sliderHandler.removeCallbacks(runnable)
-//        isCheck = false
     }
 
     private fun setupRefresh() {
@@ -130,7 +119,7 @@ class HomeFragment :
             setOnRefreshListener {
                 viewModel.getDashboard() {
                     binding.swipeLayout.isRefreshing = false
-                    binding.imageSlider.currentItem = 0
+                    binding.layoutBanner.imageSlider.currentItem = 0
                 }
             }
         }
@@ -138,10 +127,10 @@ class HomeFragment :
 
     private fun setupBanner() {
         isCheck = true
-        binding.imageSlider.adapter = adapterImage
-        TabLayoutMediator(binding.tabLayout, binding.imageSlider) { _, _ ->
+        binding.layoutBanner.imageSlider.adapter = adapterImage
+        TabLayoutMediator(binding.tabLayout, binding.layoutBanner.imageSlider) { _, _ ->
         }.attach()
-        binding.imageSlider.registerOnPageChangeCallback(object :
+        binding.layoutBanner.imageSlider.registerOnPageChangeCallback(object :
             ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
