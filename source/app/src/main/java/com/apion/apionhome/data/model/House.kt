@@ -47,7 +47,7 @@ data class House(
     @SerializedName("seller_id")
     val sellerId: Int?,
     @SerializedName("owner")
-    val owner: User,
+    val owner: User?,
     @SerializedName("seller")
     val seller: User?,
     @SerializedName("images")

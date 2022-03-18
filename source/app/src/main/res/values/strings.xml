@@ -65,5 +65,6 @@
     <string name="text_bottom_start_2">Robo siêu kết nối môi giới \n Bất động sản</string>
     <string name="text_welcome_start">Chào mừng bạn đến với Apion Home</string>
     <string name="title_start">Bắt đầu</string>
-
+    <string name="register"><u>Đăng ký</u></string>
+    <string name="forgetPinCode"><u>Quên pin code</u></string>
 </resources>

@@ -2,7 +2,9 @@
 <resources>
 <!--    <color name="color_tropical_rain">#017D4B</color>-->
 <!--    <color name="color_apple">#62B146</color>-->
-    <color name="color_primary">#017D4B</color>
+    <color name="color_primary">#468645</color>
+    <color name="color_text_primary">#468645</color>
+
     <color name="color_second_primary">#62B146</color>
     <color name="black">#FF000000</color>
     <color name="black_trans_70">#B2000000</color>
@@ -26,4 +28,5 @@
     <color name="color_prelude">#CF8AEC</color>
     <color name="color_harp">#D9EBE4</color>
     <color name="color_beryl_green">#CEE0AD</color>
+
 </resources>

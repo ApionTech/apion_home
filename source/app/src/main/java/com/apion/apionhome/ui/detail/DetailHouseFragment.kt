@@ -50,7 +50,6 @@ class DetailHouseFragment :
         val apionHome = LatLng(20.995195733794585, 105.86181631094217)
         googleMap.addMarker(MarkerOptions().position(apionHome).title("Apion Home"))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(apionHome, 18f))
-
     }
 
     override fun setupView() {

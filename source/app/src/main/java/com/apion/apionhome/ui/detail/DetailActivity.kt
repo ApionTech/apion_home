@@ -11,6 +11,7 @@ class DetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        println( intent.extras)
         findNavController(R.id.navHostActivityDetail)
             .setGraph(R.navigation.detail_graph, intent.extras)
     }
